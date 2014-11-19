@@ -29,6 +29,7 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- WEB -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
@@ -38,6 +39,7 @@
             <artifactId>jersey-media-moxy</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+
         <!-- DB -->
         <dependency>
             <groupId>org.javalite</groupId>
