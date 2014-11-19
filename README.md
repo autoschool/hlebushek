@@ -1,4 +1,4 @@
-hlebushek
+Хлебушек (Hlebushek)
 =========
 ### Run application ###
 clone project repository to local:
@@ -6,14 +6,16 @@ clone project repository to local:
 $git clone https://github.com/autoschool/hlebushek.git
 ```
 go to project directory:
+```
 $cd hlebushek
+```
 run server:
 ```
 $mvn jetty:run
 ```
 open in browser:
 ```
-http://localhost:8080
+open http://localhost:8080
 ```
 
 ### Create branch ###
