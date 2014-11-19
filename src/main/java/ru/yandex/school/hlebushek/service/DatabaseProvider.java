@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 @Provider
 public class DatabaseProvider implements ContainerRequestFilter{
-    private static final String DBUSER = "client";
+    private static final String DBUSER = "sa";
     private final static Logger logger = LoggerFactory.getLogger(DatabaseProvider.class);
     private static String dbUrl;
     
@@ -51,7 +51,7 @@ public class DatabaseProvider implements ContainerRequestFilter{
     }
     @Override
     public void filter(ContainerRequestContext crc) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        openConnection();
     }
     
     
