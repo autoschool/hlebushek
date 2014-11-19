@@ -1,0 +1,1 @@
+INSERT INTO `hlebushek`.`users` (`login`, `password`) VALUES ('admin', 'admin');
