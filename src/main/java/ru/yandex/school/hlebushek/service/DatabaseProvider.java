@@ -1,4 +1,4 @@
-package service;
+package ru.yandex.school.hlebushek.service;
 
 import java.io.IOException;
 import static java.lang.String.format;

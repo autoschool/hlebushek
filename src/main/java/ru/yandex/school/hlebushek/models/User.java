@@ -1,14 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.yandex.school.hlebushek.models;
 
-/**
- *
- * @author Drak_kin
- */
-public class User {
+import org.javalite.activejdbc.Model;
+
+public class User extends Model{
+    public String getFirstName() {
+        return getString("first_name");
+    }
+
+    public void setFirstName(String firstName) {
+        setString("first_name", firstName);
+    }
+    
+    public String getLastName() {
+        return getString("last_name");
+    }
+
+    public void setLastName(String lastName) {
+        setString("last_name", lastName);
+    }
     
 }
