@@ -1,5 +1,0 @@
-# describes ignored files for git
-.idea/*
-hlebushek.iml
-target/*
-/src/main/java/ru/yandex/school/hlebushek/models/User.java
