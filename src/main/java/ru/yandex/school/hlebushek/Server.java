@@ -13,7 +13,7 @@ public class Server extends ResourceConfig {
         register(new DynamicFeature() {
             @Override
             public void configure(ResourceInfo resourceInfo, FeatureContext context) {
-                //context.register(DatabaseProvider.class); todo: add db provider class
+                context.register(service.DatabaseProvider.class);
             }
         });
 
