@@ -11,10 +11,19 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>WEB_API</servlet-name>
         <url-pattern>/service/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>H2Console</servlet-name>
+        <servlet-class>org.h2.server.web.WebServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>H2Console</servlet-name>
+        <url-pattern>/db/console/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
