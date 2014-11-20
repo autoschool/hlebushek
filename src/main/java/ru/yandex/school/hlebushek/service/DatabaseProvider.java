@@ -8,26 +8,23 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
 import org.flywaydb.core.Flyway;
 import org.javalite.activejdbc.Base;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Provider
 public class DatabaseProvider implements ContainerRequestFilter{
     private static final String DBUSER = "sa";
-    private final static Logger logger = LoggerFactory.getLogger(DatabaseProvider.class);
     private static String dbUrl;
     
     static {
         try {
             dbUrl = format("jdbc:h2:file:%s/%s,user=%s", getDbPath(), getDbName(), DBUSER);
-            logger.info(format("Starting embedded database with url '%s' ...", dbUrl));
+            System.out.printf("Starting embedded database with url '%s' ...", dbUrl);
             openConnection();
             Flyway flyway = new Flyway();
             flyway.setDataSource(dbUrl, DBUSER, null);
             flyway.migrate();
         } catch (Exception e) {
-            logger.error("Failed to start embedded database", e);
-            System.exit(-1);
+            System.out.println("Failed to start embedded database: ".concat(e.getMessage()));
+            System.exit(1);
         }
     }
 
@@ -38,11 +35,15 @@ public class DatabaseProvider implements ContainerRequestFilter{
     }
 
     private static String getDbName() {
-        return getProperty("db.name", "default");
+        String dbName = getProperty("db.name", "default");
+        System.out.println("Use DB Name: ".concat(dbName));
+        return dbName;
     }
 
     private static String getDbPath() throws IOException {
-        return getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
+        String dbPath = getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
+        System.out.println("Use DB Path: ".concat(dbPath));
+        return dbPath;
     }
 
     private static String getProperty(String key, String defaultValue) {
