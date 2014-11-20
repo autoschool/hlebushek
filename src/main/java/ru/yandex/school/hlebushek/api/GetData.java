@@ -1,5 +1,6 @@
 package ru.yandex.school.hlebushek.api;
 
+import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.models.Comments;
 import ru.yandex.school.hlebushek.models.Posts;
@@ -46,14 +47,14 @@ public class GetData {
     @Path("users")
     @Produces(MediaType.APPLICATION_JSON)
     public String getUserById(@QueryParam("user-id") int userId, @QueryParam("login") String login) {
-        if (userId != 0) {
-            Users user = Users.findById(userId);
-            if (user != null) {
-                return user.toJson(true);
+        try {
+            if (userId != 0) {
+                return Users.findBySQL(String.format("select * from users where user_id = '%s'", userId)).toJson(true);
+            } else if (login != null && !login.isEmpty()) {
+                return Users.findBySQL(String.format("select * from users where login = '%s'", login)).toJson(true);
             }
-        } else if (login != null && !login.isEmpty()) {
-            LazyList<Users> list = Users.where(String.format("login = '%s'", userId));
-            return list.get(0).toJson(true);
+        } catch (DBException e) {
+            return e.getMessage();
         }
         return "error query parameters";
     }
