@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 CREATE TABLE `Posts` (
   `post_id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NULL ,
-  `Message` TEXT NULL ,
+  `message` TEXT NULL ,
   `author_id` INT NOT NULL ,
   `create_date` DATETIME NULL ,
   `modified_date` DATETIME NULL ,
