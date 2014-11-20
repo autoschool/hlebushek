@@ -3,7 +3,11 @@ package ru.yandex.school.hlebushek.models;
 import org.javalite.activejdbc.Model;
 
 import java.sql.Date;
+import org.javalite.activejdbc.annotations.IdName;
+import org.javalite.activejdbc.annotations.Table;
 
+@Table("Posts")
+@IdName("post_id")
 public class Posts extends Model {
 
     public void setTitle(String title) {

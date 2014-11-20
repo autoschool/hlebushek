@@ -2,7 +2,11 @@ package ru.yandex.school.hlebushek.models;
 
 import org.javalite.activejdbc.Model;
 import java.sql.Date;
+import org.javalite.activejdbc.annotations.IdName;
+import org.javalite.activejdbc.annotations.Table;
 
+@Table("Users")
+@IdName("user_id")
 public class Users extends Model {
     
     public String getFirstName() {
