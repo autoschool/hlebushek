@@ -2,7 +2,8 @@ package ru.yandex.school.hlebushek.models;
 
 import org.javalite.activejdbc.Model;
 
-public class User extends Model{
+public class Users extends Model {
+
     public String getFirstName() {
         return getString("first_name");
     }
@@ -18,5 +19,4 @@ public class User extends Model{
     public void setLastName(String lastName) {
         setString("last_name", lastName);
     }
-    
 }
