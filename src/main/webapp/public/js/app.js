@@ -8,8 +8,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when("/", {templateUrl: "partials/home.html", controller: "TestController"})
         .when("/about", {templateUrl: "partials/about.html", controller: "TestController"})
+
         .when("/all_posts", {templateUrl: "partials/all_posts.html", controller: "PostListController"})
-        .when("/all_posts/user:userId", {templateUrl: "partials/all_posts.html", controller: "PostListController"})
+        .when("/all_posts/user:userId", {templateUrl: "partials/author_blog.html", controller: "PostListController"})
+        .when("/user:userId/post:postId",{templateUrl:"partials/single_post.html", controller: "SinglePostController"})
+
         .when("/add_post", {templateUrl: "partials/add_post.html", controller: "TestController"})
 
         .otherwise("/404", {templateUrl: "partials/404.html", controller: "TestController"});

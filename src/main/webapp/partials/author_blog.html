@@ -1,0 +1,21 @@
+<div class="container" >
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well parts_bg">
+                <h4>Autor name</h4>
+                <p>Some short autor info, or some other stuff...</p>
+            </div>
+        </div>
+
+        <div class="col-lg-8 main_col parts_bg">
+            <div ng-repeat="post in posts">
+                <h1><a href="#/user{{ post.author_id }}/post{{ post.post_id }}"  class="post_link">{{ post.title }}</a></h1>
+                <p ng-show="{{ post.create_date }}"><span class="glyphicon glyphicon-time"></span> Posted on {{ post.create_date | date}}</p>
+                <p class="medium_txt">
+                    {{ post.message }}
+                </p>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>

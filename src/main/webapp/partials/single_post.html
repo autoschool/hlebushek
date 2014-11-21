@@ -1,9 +1,6 @@
 <div class="container" >
 
     <div class="row">
-
-
-
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
 
@@ -11,19 +8,30 @@
                 <h4>Autor name</h4>
                 <p>Some short autor info, or some other stuff...</p>
             </div>
-
         </div>
-        <div class="col-lg-8 main_col parts_bg" ng-controller="BlogCtrl as blog">
+        <div class="col-lg-8 main_col parts_bg"">
             <!-- Title -->
-            <h1>{{ blog.post.title }}</h1>
+            <h1>{{ posts.title }}</h1>
             <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ blog.post.create_date | date}}</p>
+            <p ng-show="{{ posts.create_date }}"><span class="glyphicon glyphicon-time"></span> Posted on {{ posts.create_date | date}}</p>
 
             <!-- Post Content -->
-            <p class="lead">
-                {{ blog.post.message }}
+            <p class="medium_txt">
+                {{ posts.message }}
             </p>
-            <small><a href id="show_comments">Comments</a></a></small>
+            <small>By {{ posts.author_id }} </small>
+            <p>
+                <small>
+                    <a href="#/all_posts/user{{ posts.author_id }}" class="post_link">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Back to blog
+                    </a>
+                    <a href id="show_comments" class="post_link">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        Comments
+                    </a>
+                </small>
+            </p>
             <hr>
             <!-- Commentы -->
             <div class="comments col-sm-offset-1">
@@ -54,9 +62,6 @@
                     <button type="submit" class="btn btn-default">Submit comment</button>
                 </form>
             </div>
-
-
-
         </div>
-
     </div>
+</div>

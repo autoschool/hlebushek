@@ -25,14 +25,15 @@ app.factory('Posts', ['$http', '$rootScope', function($http, $rootScope) {
 
 
     service.get = function(id) {
-        var post = null;
+        var singlePost = null;
         angular.forEach(posts, function(value) {
             if (parseInt(value.post_id) === parseInt(id)) {
-                post = value;
+                singlePost = value;
                 return false;
             }
         });
-        return post;
+        console.log("!!!!!!!!!!!!!", singlePost);
+        return singlePost;
     }
 
     service.getByAuthor = function(id) {
