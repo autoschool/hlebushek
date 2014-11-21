@@ -32,17 +32,16 @@ public class GetData {
     @GET
     @Path("posts")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPosts(@QueryParam("author-id") int userId, @QueryParam("post-id") int postId) {
-        if (userId != 0) {
-            LazyList<Posts> list = Posts.where(String.format("author_id = '%s'", userId));
-            return list.toJson(true);
-        } else if (postId != 0) {
-            LazyList<Posts> list = Posts.where(String.format("post_id = '%s'", postId));
-            return list.toJson(true);
+    public String getPosts(@QueryParam("author-id") Integer userId, @QueryParam("post-id") Integer postId) {
+        if (userId != null) {
+            if (postId != null) return Posts.find("author_id=? and post_id=?", userId, postId).toJson(true);
+            return Posts.find("author_id=?", userId).toJson(true);
         }
+        if (postId != null) 
+            return Posts.findById(postId).toJson(true);
         return Posts.findAll().toJson(true);
     }
-
+      
     @GET
     @Path("users")
     @Produces(MediaType.APPLICATION_JSON)
