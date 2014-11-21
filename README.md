@@ -1,4 +1,4 @@
-Хлебушек (Hlebushek)
+<img src='https://pp.vk.me/c623216/v623216453/16f39/ixNbpHR_jPw.jpg'>
 =========
 ### Run application ###
 clone project repository to local:
