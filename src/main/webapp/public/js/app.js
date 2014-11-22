@@ -1,8 +1,6 @@
-
 var app = angular.module('blogWebApp', [
     'ngRoute'
 ]);
-
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -14,14 +12,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         .when("/user:userId/post:postId",{templateUrl:"partials/single_post.html", controller: "SinglePostController"})
 
         .when("/add_post", {templateUrl: "partials/add_post.html", controller: "TestController"})
-
         .otherwise("/404", {templateUrl: "partials/404.html", controller: "TestController"});
 }]);
 
-
-
 app.controller('TestController', function () {
     console.log("Just a test controller");
-
 });
 

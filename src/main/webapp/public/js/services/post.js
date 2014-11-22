@@ -6,7 +6,7 @@ app.factory('Posts', ['$http', '$rootScope', function($http, $rootScope) {
     var posts = [];
 
     function getPosts() {
-        $http({method: 'GET', url: 'service/data/posts'})
+        $http({method: 'GET', url: 'service/GetPosts'})
             .success(function(data, status, headers, config) {
                 posts = data;
                 $rootScope.$broadcast('posts:updated');

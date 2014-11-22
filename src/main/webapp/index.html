@@ -18,6 +18,13 @@
         <link href="public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="public/css/blog-post.css" rel="stylesheet">
 
+        <!-- Vendor: Javascripts -->
+        <script src="public/js/jquery-1.11.1.min.js"></script>
+        <script src="public/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Vendor: Angular, followed by our custom Javascripts -->
+        <script src="public/angularjs/angular.js"></script>
+        <script src="public/angularjs/angular-route.js"></script>
     </head>
     <body ng-app="blogWebApp">
 
@@ -26,21 +33,11 @@
         <div ng-view></div>
         <div ng-include='"templates/footer.html"'></div>
 
-        <!-- Vendor: Javascripts -->
-        <script src="public/js/jquery-1.11.1.min.js"></script>
-        <script src="public/bootstrap/js/bootstrap.min.js"></script>
-
-        <!-- Vendor: Angular, followed by our custom Javascripts -->
-        <script src="public/angularjs/angular.js"></script>
-        <script src="public/angularjs/angular-route.js"></script>
-
         <!-- Our Website Javascripts -->
         <script src="public/js/app.js"></script>
         <script src="public/js/script.js"></script>
         <script src="public/js/controllers/postlistcontroller.js"></script>
         <script src="public/js/controllers/singlepostcontroller.js"></script>
         <script src="public/js/services/post.js"></script>
-
-
     </body>
 </html>
