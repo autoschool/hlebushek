@@ -16,7 +16,6 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`user_id`) )
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `Posts`
 -- -----------------------------------------------------
@@ -36,7 +35,6 @@ CREATE TABLE `Posts` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `Comments`

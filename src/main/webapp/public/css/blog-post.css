@@ -3,9 +3,8 @@
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
-
 body {
-    background: url('http://trickvilla.com/wp-content/uploads/Wood-Texture-Backgrounds.jpg') 100% 0% fixed;
+    background: url('http://trickvilla.com/wp-content/uploads/Wood-Texture-Backgrounds.jpg') 100% 0 fixed;
 }
 
 footer {
@@ -32,14 +31,12 @@ footer {
 	border-radius: 4px;
 }
 .logo{
-	height:200px;
+	height: 220px;
 	width: 376px;
-	background-image: url('img/logo.png');
 	background-size: 80%;
-	display:block;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	margin:0px auto;
+	display: block;
+	background: url('/public/img/logo.png') no-repeat 50% 50%;
+	margin: 0 auto 20px auto;
 
 }
 .menue_links{
@@ -72,5 +69,11 @@ footer {
 }
 .copyright {
 	color: black;
-	text-shadow: 0px 1px 1px  rgba(255, 255, 255, 0.4);
+	text-shadow: 0 1px 1px  rgba(255, 255, 255, 0.4);
+}
+
+.post-message {
+	text-align: justify;
+	font-size: 16px;
+	text-indent: 40px;
 }

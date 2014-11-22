@@ -19,6 +19,7 @@ public class GetPosts {
 
     /**
      * Method return json response posts model
+     * without parameter method return all posts
      * @param postId int { /GetPosts?post-id=num }
      * @param authorId int { /GetPosts?author-id=num }
      * @return JsonArray by String
@@ -37,6 +38,10 @@ public class GetPosts {
         }
         if (postId == 0 && authorId != 0) {
             LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
+            array = setJsonArrayPosts(posts);
+        }
+        if (postId == 0 && authorId == 0) {
+            LazyList<Posts> posts = Posts.findAll();
             array = setJsonArrayPosts(posts);
         }
         return array.toString();
