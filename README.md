@@ -1,4 +1,6 @@
-<img src='https://pp.vk.me/c623216/v623216453/16f39/ixNbpHR_jPw.jpg'>
+<div align="center">
+    <img src='https://pp.vk.me/c623216/v623216453/16f39/ixNbpHR_jPw.jpg'>
+</div>
 =========
 ### Run application ###
 clone project repository to local:
@@ -18,6 +20,7 @@ open in browser:
 open http://localhost:8080
 ```
 
+=========
 ### Create branch ###
 clone project repository to local:
 ```
