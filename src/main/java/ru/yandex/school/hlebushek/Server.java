@@ -12,7 +12,6 @@ import ru.yandex.school.hlebushek.service.DatabaseProvider;
 public class Server extends ResourceConfig {
 
     public Server() {
-
         register(JacksonFeature.class);
         register(new DynamicFeature() {
             @Override
