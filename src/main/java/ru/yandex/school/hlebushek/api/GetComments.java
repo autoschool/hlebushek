@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("GetComments")
+@Produces(MediaType.APPLICATION_JSON)
 public class GetComments {
 
     private JsonArray array = new JsonArray();
@@ -20,8 +21,7 @@ public class GetComments {
      * @return JsonArray by String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getCommentsByPost(
+    public String getComments(
             @QueryParam("post-id") int postId,
             @QueryParam("author-id") int authorId) {
         LazyList<Comments> comments;

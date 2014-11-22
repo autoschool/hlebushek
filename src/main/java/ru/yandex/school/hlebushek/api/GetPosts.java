@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("GetPosts")
+@Produces(MediaType.APPLICATION_JSON)
 public class GetPosts {
 
     private JsonArray array = new JsonArray();
@@ -23,7 +24,6 @@ public class GetPosts {
      * @return JsonArray by String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public String getPosts(
             @QueryParam("post-id") int postId,
             @QueryParam("author-id") int authorId) {
@@ -35,7 +35,7 @@ public class GetPosts {
                 System.out.println(String.format("Post_id = '%s' not found", postId));
             }
         }
-        if (postId ==0 && authorId != 0) {
+        if (postId == 0 && authorId != 0) {
             LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
             array = setJsonArrayPosts(posts);
         }
