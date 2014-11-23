@@ -45,7 +45,7 @@ describe('Posts service', function() {
 
         inject(function($injector) {
             injector = $injector;
-            $httpBackend = $injector.get('$httpBackend');
+            $httpBackend = $injector.getById('$httpBackend');
             $httpBackend.when('GET', 'service/data/posts').respond(response);
              });
     });
@@ -57,19 +57,19 @@ describe('Posts service', function() {
 
     it('calls service/data/posts', function() {
         $httpBackend.expectGET('service/data/posts');
-        injector.get('Posts');
+        injector.getById('Posts');
         $httpBackend.flush();
     });
 
 
     it('returns post by id', function() {
-        var posts = injector.get('Posts');
+        var posts = injector.getById('Posts');
         $httpBackend.flush();
-        expect(posts.get(1)).toEqual(response[0]);
+        expect(posts.getById(1)).toEqual(response[0]);
     });
 
     it('getAll method returns all posts', function() {
-        var posts = injector.get('Posts');
+        var posts = injector.getById('Posts');
         $httpBackend.flush();
         expect(posts.getAll()).toEqual(response);
     });
