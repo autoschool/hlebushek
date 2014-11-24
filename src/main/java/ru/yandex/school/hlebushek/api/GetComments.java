@@ -16,21 +16,21 @@ public class GetComments {
 
     /**
      * Method return json response comments model
-     * @param postId int { /GetComments?post-id=num }
+     * @param postId int { /GetComments?postId=num }
      * @param authorId int { /GetComments?author-id=num }
      * @return JsonArray by String
      */
     @GET
     public String getComments(
-            @QueryParam("post-id") int postId,
-            @QueryParam("author-id") int authorId) {
+            @QueryParam("postId") int postId,
+            @QueryParam("authorId") int authorId) {
         LazyList<Comments> comments;
         if (postId != 0 && authorId == 0) {
             comments = Comments.where(String.format("post_id = '%s'", postId));
             array = setJsonArrayComments(comments);
         }
         if (postId == 0 && authorId != 0) {
-            comments = Comments.where(String.format("author = '%s'", authorId));
+            comments = Comments.where(String.format("author_id = '%s'", authorId));
             array = setJsonArrayComments(comments);
         }
         return array.toString();

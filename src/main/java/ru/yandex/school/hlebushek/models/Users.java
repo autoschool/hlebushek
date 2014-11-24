@@ -1,25 +1,20 @@
 package ru.yandex.school.hlebushek.models;
 
 import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.IdName;
-import org.javalite.activejdbc.annotations.Table;
-
-import java.sql.Date;
-import org.javalite.activejdbc.annotations.IdName;
-import org.javalite.activejdbc.annotations.Table;
+import org.javalite.activejdbc.annotations.*;
 
 @Table("Users")
 @IdName("user_id")
 public class Users extends Model {
 
-    final static private String USER_ID = "user_id";
-    final static private String LOGIN = "login";
-    final static private String PASSWORD = "password";
-    final static private String CREATE_DATE = "create_date";
-    final static private String MODIFIED_DATE = "modified_date";
-    final static private String FIRST_NAME = "first_name";
-    final static private String LAST_NAME = "last_name";
-    final static private String IS_DELETED = "is_deleted";
+    private static final String USER_ID = "user_id";
+    private static final String LOGIN = "login";
+    private static final String PASSWORD = "password";
+    private static final String CREATE_DATE = "create_date";
+    private static final String MODIFIED_DATE = "modified_date";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String IS_DELETED = "is_deleted";
 
     public int getUserId() {
         return getInteger(USER_ID);

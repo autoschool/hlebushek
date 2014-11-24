@@ -1,24 +1,19 @@
 package ru.yandex.school.hlebushek.models;
 
 import org.javalite.activejdbc.Model;
-import org.javalite.activejdbc.annotations.IdName;
-import org.javalite.activejdbc.annotations.Table;
-
-import java.sql.Date;
-import org.javalite.activejdbc.annotations.IdName;
-import org.javalite.activejdbc.annotations.Table;
+import org.javalite.activejdbc.annotations.*;
 
 @Table("Posts")
 @IdName("post_id")
 public class Posts extends Model {
 
-    final static private String POST_ID = "post_id";
-    final static private String TITLE = "title";
-    final static private String MESSAGE = "message";
-    final static private String AUTHOR_ID = "author_id";
-    final static private String CREATE_DATE = "create_date";
-    final static private String MODIFIED_DATE = "modified_date";
-    final static private String IS_DELETED = "is_deleted";
+    private static final String POST_ID = "post_id";
+    private static final String TITLE = "title";
+    private static final String MESSAGE = "message";
+    private static final String AUTHOR_ID = "author_id";
+    private static final String CREATE_DATE = "create_date";
+    private static final String MODIFIED_DATE = "modified_date";
+    private static final String IS_DELETED = "is_deleted";
 
     public int getPostId() {
         return getInteger(POST_ID);
