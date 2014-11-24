@@ -2,6 +2,7 @@ package ru.yandex.school.hlebushek.api;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.models.Posts;
 
@@ -20,29 +21,31 @@ public class GetPosts {
     /**
      * Method return json response posts model
      * without parameter method return all posts
-     * @param postId int { /GetPosts?post-id=num }
-     * @param authorId int { /GetPosts?author-id=num }
+     * @param postId int { /GetPosts?postId=num }
+     * @param authorId int { /GetPosts?authorId=num }
      * @return JsonArray by String
      */
     @GET
     public String getPosts(
-            @QueryParam("post-id") int postId,
-            @QueryParam("author-id") int authorId) {
-        if (postId != 0 && authorId == 0) {
+            @QueryParam("postId") int postId,
+            @QueryParam("authorId") int authorId) {
+        if (postId == 0 && authorId == 0) {
+            LazyList<Posts> posts = Posts.findAll();
+            array = setJsonArrayPosts(posts);
+        } else if (postId != 0) {
             try {
                 Posts post = Posts.findById(postId);
                 array = setJsonArrayPosts(post);
             } catch (NullPointerException e) {
-                System.out.println(String.format("Post_id = '%s' not found", postId));
+                System.out.println(String.format("post_id = '%s' not found", postId));
             }
-        }
-        if (postId == 0 && authorId != 0) {
-            LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
-            array = setJsonArrayPosts(posts);
-        }
-        if (postId == 0 && authorId == 0) {
-            LazyList<Posts> posts = Posts.findAll();
-            array = setJsonArrayPosts(posts);
+        } else {
+            try {
+                LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
+                array = setJsonArrayPosts(posts);
+            } catch (DBException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return array.toString();
     }

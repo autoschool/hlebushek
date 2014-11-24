@@ -14,20 +14,20 @@ public class GetUsers {
 
     /**
      * Method return json response users model
-     * @param userId int { /GetComments?user-id=num }
+     * @param userId int { /GetComments?userId=num }
      * @param login String { /GetComments?login=string }
      * @return JsonObject by String
      */
     @GET
     public String getUser(
-            @QueryParam("user-id") int userId,
+            @QueryParam("userId") int userId,
             @DefaultValue("") @QueryParam("login") String login) {
         if (userId != 0 && login.isEmpty()) {
             try {
                 Users user =  Users.findById(userId);
                 object = setJsonObjectComment(user);
             } catch (NullPointerException e) {
-                System.out.println(String.format("User_id = '%s' not found", userId));
+                System.out.println(String.format("user_id = '%s' not found", userId));
             }
         }
         if (!login.isEmpty() && userId == 0) {

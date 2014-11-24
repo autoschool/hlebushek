@@ -23,18 +23,18 @@ var app = angular.module('blogWebApp', [
         });
         $routeProvider.when(ROUTES.ALL_POSTS, {
             templateUrl: "./partials/all-posts.html",
-            controller: "ListPostsController"
+            controller: "PostsController"
         });
         $routeProvider.when(ROUTES.ALL_POSTS_USER, {
-            templateUrl: "partials/author_blog.html",
-            controller: "ListPostsController"
+            templateUrl: "partials/author-blog.html",
+            controller: "PostsController"
         });
         $routeProvider.when(ROUTES.ALL_POSTS_POST, {
-            templateUrl: "partials/single_post.html",
-            controller: "SinglePostController"
+            templateUrl: "partials/single-post.html",
+            controller: "PostsController"
         });
         $routeProvider.when(ROUTES.ADD_POST, {
-            templateUrl: "partials/add_post.html",
+            templateUrl: "partials/add-post.html",
             controller: "TestController"
         });
         $routeProvider.otherwise(ROUTES.ERROR, {

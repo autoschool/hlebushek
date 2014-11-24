@@ -1,16 +1,9 @@
-app.controller('ListPostsController', ['$scope', '$rootScope', 'Posts', '$routeParams',
-    function ($scope, $rootScope, Posts, $routeParams) {
-        if ($routeParams.userId !== undefined) {
-            $scope.posts = Posts.getByAuthor($routeParams.userId);
-        } else {
-            $scope.posts = Posts.getAll();
-        }
-
-        $rootScope.$on('posts:updated', function () {
-            $scope.posts = Posts.getAll();
+app.controller('PostsController', ['$scope', '$rootScope', 'GetPosts', '$routeParams',
+    function ($scope, $rootScope, GetPosts, $routeParams) {
+        GetPosts.call({
+            'authorId': $routeParams['userId'],
+            'postId': $routeParams['postId']
+        }).then(function (response) {
+            $scope.posts = response.data;
         });
-
-        $scope.show = function (post) {
-            $rootScope.$broadcast('post:show', post);
-        }
     }]);
