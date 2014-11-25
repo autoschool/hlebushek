@@ -56,7 +56,7 @@ public class GetComments {
         jsonObject.addProperty("comment_id", comment.getCommentId());
         jsonObject.addProperty("post_id", comment.getPostId());
         jsonObject.addProperty("message", comment.getMessage());
-        jsonObject.addProperty("author", comment.getAuthorId());
+        jsonObject.addProperty("author_id", comment.getAuthorId());
         jsonObject.addProperty("create_date", comment.getCreateDate());
         jsonObject.addProperty("modified_date", comment.getModifiedDate());
         jsonObject.addProperty("is_deleted", comment.getIsDeleted());
