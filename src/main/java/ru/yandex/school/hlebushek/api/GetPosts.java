@@ -1,22 +1,21 @@
 package ru.yandex.school.hlebushek.api;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.models.Posts;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("GetPosts")
 @Produces(MediaType.APPLICATION_JSON)
 public class GetPosts {
 
-    private JsonArray array = new JsonArray();
+    private Exception exception;
+    private JsonElement json;
 
     /**
      * Method return json response posts model
@@ -29,37 +28,33 @@ public class GetPosts {
     public String getPosts(
             @QueryParam("postId") int postId,
             @QueryParam("authorId") int authorId) {
-        if (postId == 0 && authorId == 0) {
-            LazyList<Posts> posts = Posts.findAll();
-            array = setJsonArrayPosts(posts);
-        } else if (postId != 0) {
-            try {
-                Posts post = Posts.findById(postId);
-                array = setJsonArrayPosts(post);
-            } catch (NullPointerException e) {
-                System.out.println(String.format("post_id = '%s' not found", postId));
-            }
-        } else {
-            try {
+        try {
+            if (postId == 0 && authorId == 0) {
+                LazyList<Posts> posts = Posts.findAll();
+                json = setJsonArrayPosts(posts);
+            } else if (postId != 0) {
+                try {
+                    Posts post = Posts.findById(postId);
+                    json = setJsonObjectPost(post);
+                } catch (NullPointerException e) {
+                    System.out.println(String.format("post_id = '%s' not found", postId));
+                }
+            } else {
                 LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
-                array = setJsonArrayPosts(posts);
-            } catch (DBException e) {
-                System.out.println(e.getMessage());
+                json = setJsonArrayPosts(posts);
             }
+        } catch (DBException e) {
+            this.exception = e;
         }
-        return array.toString();
+        return ApiAnswer.create(json, exception).toString();
     }
 
     private JsonArray setJsonArrayPosts(LazyList<Posts> posts) {
+        JsonArray jsonArray = new JsonArray();
         for (Posts post : posts) {
-            array.add(setJsonObjectPost(post));
+            jsonArray.add(setJsonObjectPost(post));
         }
-        return array;
-    }
-
-    private JsonArray setJsonArrayPosts(Posts post) {
-        array.add(setJsonObjectPost(post));
-        return array;
+        return jsonArray;
     }
 
     private JsonObject setJsonObjectPost(Posts post) {

@@ -37,10 +37,11 @@ var app = angular.module('blogWebApp', [
             templateUrl: "partials/add-post.html",
             controller: "TestController"
         });
-        $routeProvider.otherwise(ROUTES.ERROR, {
+        $routeProvider.when(ROUTES.ERROR, {
             templateUrl: "partials/404.html",
             controller: "TestController"
         });
+        $routeProvider.otherwise({ redirectTo: ROUTES.ERROR });
     }])
     .controller('TestController', function () {
         console.log("TestController");
