@@ -1,6 +1,9 @@
 package ru.yandex.school.hlebushek.api;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.javalite.activejdbc.DBException;
+import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.models.Users;
 
 import javax.ws.rs.*;
@@ -10,7 +13,8 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GetUsers {
 
-    private JsonObject object = new JsonObject();
+    private Exception exception;
+    private JsonElement json;
 
     /**
      * Method return json response users model
@@ -22,23 +26,21 @@ public class GetUsers {
     public String getUser(
             @QueryParam("userId") int userId,
             @DefaultValue("") @QueryParam("login") String login) {
-        if (userId != 0 && login.isEmpty()) {
-            try {
+        try {
+            if (userId != 0 && login.isEmpty()) {
                 Users user =  Users.findById(userId);
-                object = setJsonObjectComment(user);
-            } catch (NullPointerException e) {
-                System.out.println(String.format("user_id = '%s' not found", userId));
+                json = setJsonObjectComment(user);
             }
-        }
-        if (!login.isEmpty() && userId == 0) {
-            try {
-                Users user = (Users) Users.where(String.format("login = '%s'", login)).get(0);
-                object = setJsonObjectComment(user);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println(String.format("Login = '%s' not found", login));
+            if (!login.isEmpty() && userId == 0) {
+                LazyList<Users> user = Users.where(String.format("login = '%s'", login));
+                if (user.size() == 1) {
+                    json = setJsonObjectComment(user.get(0));
+                }
             }
+        } catch (DBException e) {
+            exception = e;
         }
-        return object.toString();
+        return ApiAnswer.create(json, exception).toString();
     }
 
     private JsonObject setJsonObjectComment(Users user) {
