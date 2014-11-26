@@ -5,6 +5,10 @@ import org.javalite.activejdbc.annotations.*;
 
 @Table("Comments")
 @IdName("comment_id")
+@BelongsToParents({
+    @BelongsTo(parent = Posts.class, foreignKeyName = "post_id"),
+    @BelongsTo(parent = Users.class, foreignKeyName = "author_id")
+})
 public class Comments extends Model {
 
     private static final String COMMENT_ID = "comment_id";
