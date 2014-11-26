@@ -1,16 +1,21 @@
 <div class="container" >
     <div class="row">
         <div class="col-md-4">
-            <div class="well parts_bg">
-                <h4>Autor name</h4>
-                <p>Some short autor info, or some other stuff...</p>
+            <div ng-if="posts.length" class="well parts_bg">
+                <h4>{{ posts[0].first_name + ' ' + posts[0].last_name }}</h4>
+                <p>Some short author info, or some other stuff ...</p>
+            </div>
+            <div ng-if="posts.length === 0" class="well parts_bg">
+                <p>Somebody anonymous create this post :)</p>
             </div>
         </div>
 
         <div class="col-lg-8 main_col parts_bg">
             <div ng-repeat="post in posts">
-                <h1><a href="#/user{{ post.author_id }}/post{{ post.post_id }}"  class="post_link">{{ post.title }}</a></h1>
-                <p ng-show="{{ post.create_date }}"><span class="glyphicon glyphicon-time"></span> Posted on {{ post.create_date | date}}</p>
+                <h1><a href="{{ '#/user' + post.author_id + '/post' + post.post_id }}"  class="post_link">{{ post.title }}</a></h1>
+                <p ng-show="{{ post.create_date }}">
+                    <span class="glyphicon glyphicon-time"></span> Posted on {{ post.create_date | date:'fullDate' }}
+                </p>
                 <p class="medium_txt">
                     {{ post.message }}
                 </p>
