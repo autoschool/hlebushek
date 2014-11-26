@@ -1,8 +1,8 @@
 app.service('GetComments', ['$http', function ($http) {
-    var url = 'service/GetComments';
-    this.getById = function (id) {
+    var url = 'service/comments';
+    this.getById = function (params) {
         return $http.get(url, {
-            params: id
+            params: params
         });
     };
 }]);

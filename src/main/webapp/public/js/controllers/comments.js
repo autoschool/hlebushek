@@ -1,7 +1,7 @@
 app.controller('GetComments', ['$scope', 'GetComments', '$routeParams',
     function ($scope, GetComments, $routeParams) {
         GetComments.getById({
-            'postId': $routeParams.postId
+            'post_id': $routeParams.postId
         }).then(function (response) {
             var result = response.data;
             if (!result['is_error']) {
