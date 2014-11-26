@@ -4,7 +4,7 @@
         <!-- Blog Sidebar Widgets Column -->
         <div class="col-md-4">
             <div class="well parts_bg">
-                <h4>Author name</h4>
+                <h4>{{ post.first_name + ' ' + post.last_name }}</h4>
 
                 <p>Some short author info, or some other stuff ...</p>
             </div>
@@ -22,7 +22,7 @@
             <p class="medium_txt">
                 {{ post.message }}
             </p>
-            <small>By {{ post.author_id }}</small>
+            <small>By {{ post.first_name + ' ' + post.last_name }}</small>
             <p>
                 <small>
                     <a href="{{ '#/all_posts/user' + post.author_id }}" class="post_link">
@@ -41,8 +41,8 @@
             <div ng-controller="GetComments" class="comments col-sm-offset-1">
                 <div ng-if="comments.length" ng-repeat="comment in comments" class="media">
                     <div class="media-body">
-                        <h4 class="media-heading"> {{ 'Author ' + comment.author_id }}
-                            <small>{{ 'Create date ' + comment.create_date }}</small>
+                        <h4 class="media-heading"> {{ comment.first_name + ' ' + comment.last_name }}
+                            <small>{{ comment.create_date }}</small>
                         </h4>
                         <p class="small">{{ comment.message }}</p>
                     </div>
