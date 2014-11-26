@@ -1,14 +1,13 @@
-package ru.yandex.school.hlebushek.api;
+package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Posts;
 
-class GetPosts {
+class GetPosts extends ServiceResult {
 
     /**
      * Method return json posts model
@@ -21,13 +20,13 @@ class GetPosts {
         try {
             if (postId == 0 && authorId == 0) {
                 LazyList<Posts> posts = Posts.findAll();
-                json = setJsonArrayPosts(posts);
+                json = setJsonArray(posts);
             } else if (postId != 0) {
                 Posts post = Posts.findById(postId);
-                json = setJsonObjectPost(post);
+                json = setJsonObject(post);
             } else {
                 LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
-                json = setJsonArrayPosts(posts);
+                json = setJsonArray(posts);
             }
         } catch (DBException e) {
             throw new ServiceGateException(e.getMessage());
@@ -35,23 +34,11 @@ class GetPosts {
         return json;
     }
 
-    private JsonArray setJsonArrayPosts(LazyList<Posts> posts) {
+    private JsonArray setJsonArray(LazyList<Posts> posts) {
         JsonArray jsonArray = new JsonArray();
         for (Posts post : posts) {
-            jsonArray.add(setJsonObjectPost(post));
+            jsonArray.add(setJsonObject(post));
         }
         return jsonArray;
-    }
-
-    private JsonObject setJsonObjectPost(Posts post) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("post_id", post.getPostId());
-        jsonObject.addProperty("title", post.getTitle());
-        jsonObject.addProperty("message", post.getMessage());
-        jsonObject.addProperty("author_id", post.getAuthorId());
-        jsonObject.addProperty("create_date", post.getCreateDate());
-        jsonObject.addProperty("modified_date", post.getModifiedDate());
-        jsonObject.addProperty("is_deleted", post.getIsDeleted());
-        return jsonObject;
     }
 }

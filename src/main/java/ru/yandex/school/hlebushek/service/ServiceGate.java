@@ -1,4 +1,4 @@
-package ru.yandex.school.hlebushek.api;
+package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonElement;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
@@ -9,28 +9,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class ServiceGate extends ServiceResult {
-
-    /**
-     * Method return json response posts model
-     * without parameter method return all posts
-     * @param postId int { /GetPosts?postId=num }
-     * @param authorId int { /GetPosts?authorId=num }
-     * @return JsonObject by String
-     */
-    @Path("GetPosts")
-    @GET
-    public String getPosts(
-            @QueryParam("postId") int postId,
-            @QueryParam("authorId") int authorId) {
-        ServiceGateException exception = null;
-        JsonElement json = null;
-        try {
-            json = new GetPosts().getPosts(postId, authorId);
-        }catch (ServiceGateException e) {
-            exception = e;
-        }
-        return create(json, exception).toString();
-    }
 
     /**
      * Method return json response users model
@@ -47,6 +25,28 @@ public class ServiceGate extends ServiceResult {
         JsonElement json = null;
         try {
             json = new GetUsers().getUser(userId, login);
+        }catch (ServiceGateException e) {
+            exception = e;
+        }
+        return create(json, exception).toString();
+    }
+
+    /**
+     * Method return json response posts model
+     * without parameter method return all posts
+     * @param postId int { /GetPosts?postId=num }
+     * @param authorId int { /GetPosts?authorId=num }
+     * @return JsonObject by String
+     */
+    @GET
+    @Path("GetPosts")
+    public String getPosts(
+            @QueryParam("postId") int postId,
+            @QueryParam("authorId") int authorId) {
+        ServiceGateException exception = null;
+        JsonElement json = null;
+        try {
+            json = new GetPosts().getPosts(postId, authorId);
         }catch (ServiceGateException e) {
             exception = e;
         }
