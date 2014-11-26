@@ -5,48 +5,34 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
+import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Posts;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
-@Path("GetPosts")
-@Produces(MediaType.APPLICATION_JSON)
-public class GetPosts {
-
-    private Exception exception;
-    private JsonElement json;
+class GetPosts {
 
     /**
-     * Method return json response posts model
-     * without parameter method return all posts
-     * @param postId int { /GetPosts?postId=num }
-     * @param authorId int { /GetPosts?authorId=num }
-     * @return JsonArray by String
+     * Method return json posts model
+     * @param postId int
+     * @param authorId int
+     * @return JsonElement
      */
-    @GET
-    public String getPosts(
-            @QueryParam("postId") int postId,
-            @QueryParam("authorId") int authorId) {
+    public JsonElement getPosts(int postId, int authorId) throws ServiceGateException {
+        JsonElement json;
         try {
             if (postId == 0 && authorId == 0) {
                 LazyList<Posts> posts = Posts.findAll();
                 json = setJsonArrayPosts(posts);
             } else if (postId != 0) {
-                try {
-                    Posts post = Posts.findById(postId);
-                    json = setJsonObjectPost(post);
-                } catch (NullPointerException e) {
-                    System.out.println(String.format("post_id = '%s' not found", postId));
-                }
+                Posts post = Posts.findById(postId);
+                json = setJsonObjectPost(post);
             } else {
                 LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
                 json = setJsonArrayPosts(posts);
             }
         } catch (DBException e) {
-            this.exception = e;
+            throw new ServiceGateException(e.getMessage());
         }
-        return ApiAnswer.create(json, exception).toString();
+        return json;
     }
 
     private JsonArray setJsonArrayPosts(LazyList<Posts> posts) {

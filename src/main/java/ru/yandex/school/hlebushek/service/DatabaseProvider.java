@@ -28,7 +28,7 @@ public class DatabaseProvider implements ContainerRequestFilter{
         }
     }
 
-    public static void openConnection() {
+    private static void openConnection() {
         if (!Base.hasConnection()) {
             Base.open(org.h2.Driver.class.getName(), dbUrl, DBUSER, "");
         }

@@ -5,28 +5,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
+import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Comments;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
-@Path("GetComments")
-@Produces(MediaType.APPLICATION_JSON)
-public class GetComments {
-
-    private Exception exception;
-    private JsonElement json;
+class GetComments {
 
     /**
-     * Method return json response comments model
-     * @param postId int { /GetComments?postId=num }
-     * @param authorId int { /GetComments?author-id=num }
-     * @return JsonArray by String
+     * Method return json comments model
+     * @param postId int
+     * @param authorId int
+     * @return JsonElement
      */
-    @GET
-    public String getComments(
-            @QueryParam("postId") int postId,
-            @QueryParam("authorId") int authorId) {
+    public JsonElement getComments( int postId, int authorId) throws ServiceGateException {
+        JsonElement json = null;
         try {
             LazyList<Comments> comments;
             if (postId != 0 && authorId == 0) {
@@ -38,9 +29,9 @@ public class GetComments {
                 json = setJsonArrayComments(comments);
             }
         } catch (DBException e) {
-            exception = e;
+            throw new ServiceGateException(e.getMessage());
         }
-        return ApiAnswer.create(json, exception).toString();
+        return json;
     }
 
     private JsonArray setJsonArrayComments(LazyList<Comments> comments) {
