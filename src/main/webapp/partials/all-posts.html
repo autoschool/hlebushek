@@ -6,7 +6,7 @@
             </h1>
             <p ng-show="{{ post.create_date }}">
                 <span class="glyphicon glyphicon-time"></span>
-                Posted on {{ post.create_date | date}}
+                Posted on {{ post.create_date | date:'fullDate'}}
             </p>
             <p class="medium_txt">{{ post.message }}</p>
             <small>By {{ post.first_name + ' ' + post.last_name }}</small>

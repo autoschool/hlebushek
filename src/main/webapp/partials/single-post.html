@@ -5,13 +5,11 @@
         <div class="col-md-4">
             <div class="well parts_bg">
                 <h4>{{ post.first_name + ' ' + post.last_name }}</h4>
-
                 <p>Some short author info, or some other stuff ...</p>
             </div>
         </div>
         <div class="col-lg-8 main_col parts_bg">
             <h1>{{ post.title }}</h1>
-
             <p ng-show="{{ post.create_date }}">
                 <span class="glyphicon glyphicon-time">
                     Posted on {{ post.create_date | date}}
@@ -42,7 +40,7 @@
                 <div ng-if="comments.length" ng-repeat="comment in comments" class="media">
                     <div class="media-body">
                         <h4 class="media-heading"> {{ comment.first_name + ' ' + comment.last_name }}
-                            <small>{{ comment.create_date }}</small>
+                            <small>{{ comment.create_date | date:'fullDate' }}</small>
                         </h4>
                         <p class="small">{{ comment.message }}</p>
                     </div>
@@ -58,7 +56,6 @@
 
             <div class="well parts_bg">
                 <h4>Leave a Comment:</h4>
-
                 <form role="form">
                     <div class="form-group">
                         <textarea class="form-control" rows="3" title=""></textarea>
