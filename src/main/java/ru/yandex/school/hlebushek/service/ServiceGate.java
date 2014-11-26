@@ -17,9 +17,9 @@ public class ServiceGate extends ServiceResult {
      * @return JsonObject by String
      */
     @GET
-    @Path("GetUser")
+    @Path("users")
     public String getUser(
-            @QueryParam("userId") int userId,
+            @QueryParam("user_id") int userId,
             @DefaultValue("") @QueryParam("login") String login) {
         ServiceGateException exception = null;
         JsonElement json = null;
@@ -39,10 +39,10 @@ public class ServiceGate extends ServiceResult {
      * @return JsonObject by String
      */
     @GET
-    @Path("GetPosts")
+    @Path("posts")
     public String getPosts(
-            @QueryParam("postId") int postId,
-            @QueryParam("authorId") int authorId) {
+            @QueryParam("post_id") int postId,
+            @QueryParam("author_id") int authorId) {
         ServiceGateException exception = null;
         JsonElement json = null;
         try {
@@ -60,10 +60,10 @@ public class ServiceGate extends ServiceResult {
      * @return JsonObject by String
      */
     @GET
-    @Path("GetComments")
+    @Path("comments")
     public String getComments(
-            @QueryParam("postId") int postId,
-            @QueryParam("authorId") int authorId) {
+            @QueryParam("post_id") int postId,
+            @QueryParam("author_id") int authorId) {
         ServiceGateException exception = null;
         JsonElement json = null;
         try {

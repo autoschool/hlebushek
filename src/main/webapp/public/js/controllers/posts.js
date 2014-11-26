@@ -1,8 +1,8 @@
 app.controller('PostsController', ['$scope', 'GetPosts', '$routeParams',
     function ($scope, GetPosts, $routeParams) {
         GetPosts.call({
-            'authorId': $routeParams['userId'],
-            'postId': $routeParams['postId']
+            'author_id': $routeParams['userId'],
+            'post_id': $routeParams['postId']
         }).then(function (response) {
             var result = response.data;
             if (!result['is_error']) {
