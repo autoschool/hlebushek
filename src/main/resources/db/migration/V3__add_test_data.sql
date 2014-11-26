@@ -8,7 +8,7 @@ INSERT INTO `users` (`login`, `password`, `first_name`, `last_name`)
 VALUES ('user2', '12345678', 'Сергей', 'Михайлович');
 
 INSERT INTO `users` (`login`, `password`, `first_name`, `last_name`)
-VALUES ('user3', 'qwerty098', '名李名', '李名李');
+VALUES ('user3', 'qwerty098', 'Пётр', 'Иванович');
 
 -- -----------------------------------------------------
 -- Add posts
@@ -36,26 +36,26 @@ VALUES ('Бизнес и финансы',
 -- -----------------------------------------------------
 -- Add comments
 -- -----------------------------------------------------
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Солнца и стал грызть дерево.',
-        1, (SELECT `user_id` FROM `users` where `login`='user1'));
+        1, (SELECT `user_id` FROM `users` where `login`='user1'), '2014-11-25 23:59:59');
 
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Gurnard barbel hatchetfish mackerel Blind shark: snipe eel blue catfish temperate ocean-bass nase bramble shark staghorn sculpin. Kokopu megamouth shark sargassum fish temperate bass sailbearer bleak jewelfish ridgehead yellowfin croaker. Jewelfish roanoke bass luminous hake taimen jewelfish swallower leatherjacket shortnose chimaera Shingle Fish, roosterfish stickleback buffalofish? Sea catfish delta smelt plownose chimaera stingray.',
-        1, (SELECT `user_id` FROM `users` where `login`='user2'));
+        1, (SELECT `user_id` FROM `users` where `login`='user2'), '2013-12-31 13:29:00');
 
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Покровительствуемым товарищем вронского; а son aise говорили: наш губернский предводитель не от. ',
-        2, (SELECT `user_id` FROM `users` where `login`='user1'));
+        2, (SELECT `user_id` FROM `users` where `login`='user1'), '2012-02-21 12:32:53');
 
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Кроме этого шального господина, женатого на свободу пред ним, и для того. Было, что ему кучу ни. Мнимой гордости ошибался, думая, что он мог так заманили. ',
-        3, (SELECT `user_id` FROM `users` where `login`='user1'));
+        3, (SELECT `user_id` FROM `users` where `login`='user1'), '2014-09-30 22:07:35');
 
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Внешнего вида контента, просмотра шрифтов. Использующими латинский алфавит, могут возникнуть небольшие проблемы: в длине наиболее распространенных. Латыни и т.д является знаменитый lorem появлением lorem. Основе оригинального трактата, благодаря чему появляется возможность получить. Демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов.',
-        3, (SELECT `user_id` FROM `users` where `login`='user2'));
+        3, (SELECT `user_id` FROM `users` where `login`='user2'), '2014-10-24 21:12:01');
 
-INSERT INTO `comments` (`message`, `post_id`,`author_id`)
+INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Hillstream loach, giant gourami swampfish barred danio frilled shark beluga sturgeon. Candlefish barbel--torpedo garpike burrowing goby halfbeak Blacksmelt dragon goby, grunt sculpin lined sole oceanic flyingfish.',
-        3, (SELECT `user_id` FROM `users` where `login`='user3'));
+        3, (SELECT `user_id` FROM `users` where `login`='user3'), '2013-11-12 05:36:15');

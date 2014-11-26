@@ -9,7 +9,7 @@
                 Posted on {{ post.create_date | date}}
             </p>
             <p class="medium_txt">{{ post.message }}</p>
-            <small>By {{ post.author_id }}</small>
+            <small>By {{ post.first_name + ' ' + post.last_name }}</small>
             <p>
                 <small>
                     <a href="{{ '#/all_posts/user' + post.author_id }}" class="post_link">
