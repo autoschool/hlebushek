@@ -39,12 +39,19 @@
 
             <!-- Comments -->
             <div ng-controller="GetComments" class="comments col-sm-offset-1">
-                <div ng-repeat="comment in comments" class="media">
+                <div ng-if="comments.length" ng-repeat="comment in comments" class="media">
                     <div class="media-body">
                         <h4 class="media-heading"> {{ 'Author ' + comment.author_id }}
                             <small>{{ 'Create date ' + comment.create_date }}</small>
                         </h4>
                         <p class="small">{{ comment.message }}</p>
+                    </div>
+                </div>
+                <div ng-if="comments.length === 0">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <small>No comments yet. Will be first ;)</small>
+                        </h4>
                     </div>
                 </div>
             </div>

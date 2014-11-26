@@ -59,6 +59,8 @@ abstract class ServiceResult {
         jsonObject.addProperty("create_date", post.getCreateDate());
         jsonObject.addProperty("modified_date", post.getModifiedDate());
         jsonObject.addProperty("is_deleted", post.getIsDeleted());
+        jsonObject.addProperty("first_name", post.parent(Users.class).getFirstName());
+        jsonObject.addProperty("last_name", post.parent(Users.class).getLastName());
         return jsonObject;
     }
 
@@ -76,6 +78,8 @@ abstract class ServiceResult {
         jsonObject.addProperty("create_date", comment.getCreateDate());
         jsonObject.addProperty("modified_date", comment.getModifiedDate());
         jsonObject.addProperty("is_deleted", comment.getIsDeleted());
+        jsonObject.addProperty("first_name", comment.parent(Users.class).getFirstName());
+        jsonObject.addProperty("last_name", comment.parent(Users.class).getLastName());
         return jsonObject;
     }
 }

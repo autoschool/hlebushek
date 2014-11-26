@@ -5,6 +5,7 @@ import org.javalite.activejdbc.annotations.*;
 
 @Table("Posts")
 @IdName("post_id")
+@BelongsTo(parent = Users.class, foreignKeyName = "author_id")
 public class Posts extends Model {
 
     private static final String POST_ID = "post_id";
