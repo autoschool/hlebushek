@@ -6,7 +6,7 @@ import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Users;
 
-class GetUsers extends ServiceResult {
+class UsersData extends ServiceResult {
 
     /**
      * Method return json users model
