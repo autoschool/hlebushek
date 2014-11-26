@@ -31,7 +31,11 @@ public class Users extends Model {
     public void setPassword(String password) {
         setString(PASSWORD, password);
     }
-
+    
+    public String getPassword() {
+        return getString(PASSWORD);
+    }
+    
     public String getCreateDate() {
         if (getDate(CREATE_DATE) != null) {
             return getDate(CREATE_DATE).toString();

@@ -5,9 +5,11 @@ import static java.lang.String.format;
 import static java.nio.file.Files.createTempDirectory;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.ext.Provider;
 import org.flywaydb.core.Flyway;
 import org.javalite.activejdbc.Base;
+import sun.security.x509.URIName;
 
 @Provider
 public class DatabaseProvider implements ContainerRequestFilter{
@@ -50,8 +52,12 @@ public class DatabaseProvider implements ContainerRequestFilter{
         final String value = System.getProperty(key);
         return (value == null) ? defaultValue : value;
     }
+    //@Context uriinfo
     @Override
     public void filter(ContainerRequestContext crc) throws IOException {
+        Integer userId = (Integer) crc.getProperty("user_id");
+        if (userId == null && !crc.getUriInfo().getRequestUri().equals(crc.getUriInfo().getBaseUri()))
+            return;
         openConnection();
     }
     
