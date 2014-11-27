@@ -66,7 +66,7 @@ public class Comments extends Model {
         }
     }
 
-    public int getCommentIsDeleted() {
-        return getInteger(COMMENT_IS_DELETED);
+    public boolean getCommentIsDeleted() {
+        return getBoolean(COMMENT_IS_DELETED);
     }
 }

@@ -11,12 +11,9 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created by mipan on 23.11.2014.
- */
 public class hlebushekTest {
     public WebDriver driver;
-    private String baseUrl = "http://localhost:8080";
+    private static final String BS_URL = "http://localhost:8080";
 
     @Before
     public void openHomePage() {
@@ -26,7 +23,7 @@ public class hlebushekTest {
 
     @Test
     public void testGetTitleMainPage(){
-        driver.get(baseUrl);
+        driver.get(BS_URL);
         assertThat(driver.getTitle(), equalTo("Hlebushek blog"));
     }
 
