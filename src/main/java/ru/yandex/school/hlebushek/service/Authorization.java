@@ -1,4 +1,4 @@
-package ru.yandex.school.hlebushek.api;
+package ru.yandex.school.hlebushek.service;
 
 import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
