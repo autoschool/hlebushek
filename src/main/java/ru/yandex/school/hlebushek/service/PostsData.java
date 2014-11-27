@@ -2,6 +2,7 @@ package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.common.ConversionException;
@@ -20,13 +21,14 @@ class PostsData extends ServiceResult {
         JsonElement json;
         try {
             if (postId == 0 && authorId == 0) {
-                LazyList<Posts> posts = Posts.findAll();
+                LazyList<Posts> posts = Posts.findAll().orderBy("create_date desc");
                 json = setJsonArray(posts);
             } else if (postId != 0) {
                 Posts post = Posts.findById(postId);
                 json = setJsonObject(post);
             } else {
-                LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId));
+                LazyList<Posts> posts = Posts.where(String.format("author_id = '%s'", authorId))
+                        .orderBy("create_date desc");
                 json = setJsonArray(posts);
             }
         } catch (DBException e) {
@@ -44,13 +46,16 @@ class PostsData extends ServiceResult {
      */
     public void setPost(int authorId, String title, String message) throws ServiceGateException {
         try {
+            Base.openTransaction();
             Posts post = new Posts();
             post.setPostAuthorId(authorId);
             post.setTitle(title);
             post.setPostMessage(message);
             post.setPostCreateDate(getCurrentDate());
             post.saveIt();
+            Base.commitTransaction();
         } catch (DBException | ConversionException e) {
+            Base.rollbackTransaction();
             throw new ServiceGateException(e.getMessage());
         }
     }

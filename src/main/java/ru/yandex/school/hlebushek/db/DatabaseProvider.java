@@ -10,7 +10,7 @@ import org.flywaydb.core.Flyway;
 import org.javalite.activejdbc.Base;
 
 @Provider
-public class DatabaseProvider implements ContainerRequestFilter{
+public class DatabaseProvider implements ContainerRequestFilter {
     private static final String DBUSER = "sa";
     private static String dbUrl;
     
@@ -35,15 +35,11 @@ public class DatabaseProvider implements ContainerRequestFilter{
     }
 
     private static String getDbName() {
-        String dbName = getProperty("db.name", "default");
-        System.out.println("Use DB Name: ".concat(dbName));
-        return dbName;
+        return getProperty("db.name", "default");
     }
 
     private static String getDbPath() throws IOException {
-        String dbPath = getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
-        System.out.println("Use DB Path: ".concat(dbPath));
-        return dbPath;
+        return getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
     }
 
     private static String getProperty(String key, String defaultValue) {
