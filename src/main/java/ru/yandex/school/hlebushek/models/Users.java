@@ -68,11 +68,34 @@ public class Users extends Model {
         setString(LAST_NAME, lastName);
     }
 
-    public int getIsDeleted() {
-        return getInteger(IS_DELETED);
+    public Boolean getIsDeleted() {
+        return getBoolean(IS_DELETED);
     }
 
-    public void setIsDeleted(int isDeleted) {
-        setInteger(IS_DELETED, isDeleted);
+    public void setIsDeleted(Boolean isDeleted) {
+        setBoolean(IS_DELETED, isDeleted);
+    }
+    public Integer getVkId() {
+        return getInteger("vk_id");
+    }
+
+    public void setVkId(Integer vkId) {
+        setInteger("vk_id",vkId);
+    }
+    
+    public String getToken() {
+        return getString("vk_token");
+    }
+
+    public void setToken(String token) {
+        setString("vk_token", token);
+    }
+    
+    public String getSmallImage() {
+        return getString("photo_50");
+    }
+
+    public void setSmallImage(Byte[] image) {
+        set("photo_50",image);
     }
 }

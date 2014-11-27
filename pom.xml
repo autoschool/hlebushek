@@ -44,7 +44,18 @@
             <artifactId>gson</artifactId>
             <version>2.3.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.glassfish.jersey.security</groupId>
+            <artifactId>oauth2-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        
         <!-- DB Server -->
         <dependency>
             <groupId>org.javalite</groupId>
@@ -72,7 +83,7 @@
 
         <!--Web tests-->
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.github.detro.ghostdriver</groupId>
             <artifactId>phantomjsdriver</artifactId>
             <version>1.1.0</version>
@@ -96,7 +107,7 @@
             <artifactId>selenium-api</artifactId>
             <version>2.41.0</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 
