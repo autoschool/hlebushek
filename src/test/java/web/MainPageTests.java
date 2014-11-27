@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class hlebushekTest {
+public class MainPageTests {
     public WebDriver driver;
     private static final String BS_URL = "http://localhost:8080";
 
@@ -22,7 +22,7 @@ public class hlebushekTest {
     }
 
     @Test
-    public void testGetTitleMainPage(){
+    public void testTitleMainPage(){
         driver.get(BS_URL);
         assertThat(driver.getTitle(), equalTo("Hlebushek blog"));
     }

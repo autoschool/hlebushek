@@ -1,18 +1,10 @@
 package ru.yandex.school.hlebushek.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
-import org.javalite.activejdbc.LazyList;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
-import ru.yandex.school.hlebushek.models.Posts;
-import ru.yandex.school.hlebushek.models.Users;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -126,33 +118,5 @@ public class ServiceGate extends ServiceResult {
             exception = e;
         }
         return create(null, exception).toString();
-    }
-
-
-    @GET
-    @Path("test")
-    public String setJsonPostsFromMaps() throws JsonProcessingException {
-        LazyList<Posts> posts = Posts.findAll().orderBy("create_date desc");
-        posts.include(Users.class);
-        List<Map> maps = posts.toMaps();
-        for (Map map : maps) {
-            Map user = (Map) map.get("users");
-            user.remove("password");
-        }
-        return new ObjectMapper().writeValueAsString(responseMap(maps, null));
-    }
-
-    private Map<String, Object> responseMap(List<Map> dataMap, Exception e) {
-        Map<String, Object> response = new HashMap<>();
-        boolean isError = false;
-        String errorMessage = "";
-        if (e != null) {
-            isError = true;
-            errorMessage = e.getMessage();
-        }
-        response.put("data", dataMap);
-        response.put("is_error", isError);
-        response.put("error", errorMessage);
-        return response;
     }
 }

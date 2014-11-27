@@ -2,4 +2,4 @@
 .idea/*
 hlebushek.iml
 target/*
-phantomjsdriver.log
+*.log

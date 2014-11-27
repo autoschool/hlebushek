@@ -34,9 +34,9 @@ create & change to new branch:
 ```
 $git checkout -b [branch_name]
 ```
+
 =========
 ### Run system tests
-
   *  Install PhantomJS from [here](http://phantomjs.org)
   *  `mvn jetty:run` - run server
   *  run WebTest from IDE

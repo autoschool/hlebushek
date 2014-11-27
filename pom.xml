@@ -70,7 +70,7 @@
         </dependency>
 
 
-        <!--Web tests-->
+        <!-- Tests -->
         <dependency>
             <groupId>com.github.detro</groupId>
             <artifactId>phantomjsdriver</artifactId>
