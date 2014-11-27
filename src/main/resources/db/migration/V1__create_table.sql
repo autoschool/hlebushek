@@ -47,7 +47,7 @@ CREATE TABLE `Comments` (
   `author_id` INT NOT NULL ,
   `create_date` DATETIME NULL ,
   `modified_date` DATETIME NULL ,
-  `is_deleted` TINYINT(1) NULL DEFAULT False ,
+  `is_deleted` BOOLEAN NULL DEFAULT False ,
   PRIMARY KEY (`comment_id`) ,
   -- INDEX `fk_Comment_Post1_idx` (`post_id` ASC) ,
   -- INDEX `fk_Comments_user1_idx` (`author` ASC) ,

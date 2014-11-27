@@ -12,62 +12,62 @@ import org.javalite.activejdbc.annotations.*;
 public class Comments extends Model {
 
     private static final String COMMENT_ID = "comment_id";
-    private static final String MESSAGE = "message";
-    private static final String POST_ID = "post_id";
-    private static final String AUTHOR_ID = "author_id";
-    private static final String CREATE_DATE = "create_date";
-    private static final String MODIFIED_DATE = "modified_date";
-    private static final String IS_DELETED = "is_deleted";
+    private static final String COMMENT_MESSAGE = "message";
+    private static final String COMMENT_POST_ID = "post_id";
+    private static final String COMMENT_AUTHOR_ID = "author_id";
+    private static final String COMMENT_CREATE_DATE = "create_date";
+    private static final String COMMENT_MODIFIED_DATE = "modified_date";
+    private static final String COMMENT_IS_DELETED = "is_deleted";
 
     public int getCommentId() {
         return getInteger(COMMENT_ID);
     }
 
     public String getMessage() {
-        return getString(MESSAGE);
+        return getString(COMMENT_MESSAGE);
     }
 
     public void setMessage(String message) {
-        setString(MESSAGE, message);
+        setString(COMMENT_MESSAGE, message);
     }
 
     public int getPostId() {
-        return getInteger(POST_ID);
+        return getInteger(COMMENT_POST_ID);
     }
 
     public void setPostId(int postId) {
-        setInteger(POST_ID, postId);
+        setInteger(COMMENT_POST_ID, postId);
     }
 
     public int getAuthorId() {
-        return getInteger(AUTHOR_ID);
+        return getInteger(COMMENT_AUTHOR_ID);
     }
 
     public void setAuthorId(int authorId) {
-        setInteger(AUTHOR_ID, authorId);
+        setInteger(COMMENT_AUTHOR_ID, authorId);
     }
 
     public String getCreateDate() {
-        if (getDate(CREATE_DATE) != null) {
-            return getDate(CREATE_DATE).toString();
+        if (getDate(COMMENT_CREATE_DATE) != null) {
+            return getDate(COMMENT_CREATE_DATE).toString();
         } else {
             return null;
         }
     }
 
     public String getModifiedDate() {
-        if (getDate(MODIFIED_DATE) != null) {
-            return getDate(MODIFIED_DATE).toString();
+        if (getDate(COMMENT_MODIFIED_DATE) != null) {
+            return getDate(COMMENT_MODIFIED_DATE).toString();
         } else {
             return null;
         }
     }
 
-    public int getIsDeleted() {
-        return getInteger(IS_DELETED);
+    public Boolean getIsDeleted() {
+        return getBoolean(COMMENT_IS_DELETED);
     }
 
-    public void setIsDeleted(int isDeleted) {
-        setInteger(IS_DELETED, isDeleted);
+    public void setIsDeleted(Boolean isDeleted) {
+        setBoolean(COMMENT_IS_DELETED, isDeleted);
     }
 }

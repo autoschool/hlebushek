@@ -10,11 +10,11 @@ public class Posts extends Model {
 
     private static final String POST_ID = "post_id";
     private static final String TITLE = "title";
-    private static final String MESSAGE = "message";
-    private static final String AUTHOR_ID = "author_id";
-    private static final String CREATE_DATE = "create_date";
-    private static final String MODIFIED_DATE = "modified_date";
-    private static final String IS_DELETED = "is_deleted";
+    private static final String POST_MESSAGE = "message";
+    private static final String POST_AUTHOR_ID = "author_id";
+    private static final String POST_CREATE_DATE = "create_date";
+    private static final String POST_MODIFIED_DATE = "modified_date";
+    private static final String POST_IS_DELETED = "is_deleted";
 
     public int getPostId() {
         return getInteger(POST_ID);
@@ -28,43 +28,45 @@ public class Posts extends Model {
         setString(TITLE, title);
     }
 
-    public String getMessage() {
-        return getString(MESSAGE);
+    public String getPostMessage() {
+        return getString(POST_MESSAGE);
     }
 
-    public void setMessage(String message) {
-        setString(MESSAGE, message);
+    public void setPostMessage(String message) {
+        setString(POST_MESSAGE, message);
     }
 
-    public int getAuthorId() {
-        return getInteger(AUTHOR_ID);
+    public int getPostAuthorId() {
+        return getInteger(POST_AUTHOR_ID);
     }
 
-    public void setAuthorId(int authorId) {
-        setInteger(AUTHOR_ID, authorId);
+    public void setPostAuthorId(int authorId) {
+        setInteger(POST_AUTHOR_ID, authorId);
     }
 
-    public String getCreateDate() {
-        if (getDate(CREATE_DATE) != null) {
-            return getDate(CREATE_DATE).toString();
+    public String getPostCreateDate() {
+        if (getDate(POST_CREATE_DATE) != null) {
+            return getDate(POST_CREATE_DATE).toString();
         } else {
             return null;
         }
     }
 
-    public String getModifiedDate() {
-        if (getDate(MODIFIED_DATE) != null) {
-            return getDate(MODIFIED_DATE).toString();
+    public void setPostCreateDate(String date) {
+        if (date != null && !date.isEmpty()) {
+            setString(POST_CREATE_DATE, date);
+        }
+    }
+
+    public String getPostModifiedDate() {
+        if (getDate(POST_MODIFIED_DATE) != null) {
+            return getDate(POST_MODIFIED_DATE).toString();
         } else {
             return null;
         }
     }
 
-    public boolean getIsDeleted() {
-        return getBoolean(IS_DELETED);
-    }
-
-    public void setIsDeleted(boolean isDeleted) {
-        setBoolean(IS_DELETED, isDeleted);
+    public boolean getPostIsDeleted() {
+        return getBoolean(POST_IS_DELETED);
     }
 }

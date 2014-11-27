@@ -66,11 +66,11 @@ public class GetPosts {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("post_id", post.getPostId());
         jsonObject.addProperty("title", post.getTitle());
-        jsonObject.addProperty("message", post.getMessage());
-        jsonObject.addProperty("author_id", post.getAuthorId());
-        jsonObject.addProperty("create_date", post.getCreateDate());
-        jsonObject.addProperty("modified_date", post.getModifiedDate());
-        jsonObject.addProperty("is_deleted", post.getIsDeleted());
+        jsonObject.addProperty("message", post.getPostMessage());
+        jsonObject.addProperty("author_id", post.getPostAuthorId());
+        jsonObject.addProperty("create_date", post.getPostCreateDate());
+        jsonObject.addProperty("modified_date", post.getPostModifiedDate());
+        jsonObject.addProperty("is_deleted", post.getPostIsDeleted());
         return jsonObject;
     }
 }

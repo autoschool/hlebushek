@@ -30,13 +30,9 @@ go to project directory
 ```
 $cd hlebushek
 ```
-create new branch:
+create & change to new branch:
 ```
-$git branch [branch_name]
-```
-change current branch:
-```
-$git checkout [branch_name]
+$git checkout -b [branch_name]
 ```
 =========
 ### Run system tests
