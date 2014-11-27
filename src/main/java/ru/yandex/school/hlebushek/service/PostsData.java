@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
+import org.javalite.common.ConversionException;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Posts;
 
@@ -44,12 +45,12 @@ class PostsData extends ServiceResult {
     public void setPost(int authorId, String title, String message) throws ServiceGateException {
         try {
             Posts post = new Posts();
-            post.setAuthorId(authorId);
+            post.setPostAuthorId(authorId);
             post.setTitle(title);
-            post.setMessage(message);
-            // todo "create date method"
+            post.setPostMessage(message);
+            post.setPostCreateDate(getCurrentDate());
             post.saveIt();
-        } catch (DBException e) {
+        } catch (DBException | ConversionException e) {
             throw new ServiceGateException(e.getMessage());
         }
     }

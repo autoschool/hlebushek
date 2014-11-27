@@ -5,6 +5,9 @@ import com.google.gson.JsonObject;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 abstract class ServiceResult {
 
     public ServiceResult() {}
@@ -39,9 +42,9 @@ abstract class ServiceResult {
         jsonObject.addProperty("login", user.getLogin());
         jsonObject.addProperty("first_name", user.getFirstName());
         jsonObject.addProperty("last_name", user.getLastName());
-        jsonObject.addProperty("create_date", user.getCreateDate());
-        jsonObject.addProperty("modified_date", user.getModifiedDate());
-        jsonObject.addProperty("is_deleted", user.getIsDeleted());
+        jsonObject.addProperty("create_date", user.getUserCreateDate());
+        jsonObject.addProperty("modified_date", user.getUserModifiedDate());
+        jsonObject.addProperty("is_deleted", user.getUserIsDeleted());
         return jsonObject;
     }
 
@@ -54,11 +57,11 @@ abstract class ServiceResult {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("post_id", post.getPostId());
         jsonObject.addProperty("title", post.getTitle());
-        jsonObject.addProperty("message", post.getMessage());
-        jsonObject.addProperty("author_id", post.getAuthorId());
-        jsonObject.addProperty("create_date", post.getCreateDate());
-        jsonObject.addProperty("modified_date", post.getModifiedDate());
-        jsonObject.addProperty("is_deleted", post.getIsDeleted());
+        jsonObject.addProperty("message", post.getPostMessage());
+        jsonObject.addProperty("author_id", post.getPostAuthorId());
+        jsonObject.addProperty("create_date", post.getPostCreateDate());
+        jsonObject.addProperty("modified_date", post.getPostModifiedDate());
+        jsonObject.addProperty("is_deleted", post.getPostIsDeleted());
         jsonObject.addProperty("first_name", post.parent(Users.class).getFirstName());
         jsonObject.addProperty("last_name", post.parent(Users.class).getLastName());
         return jsonObject;
@@ -72,14 +75,23 @@ abstract class ServiceResult {
     protected JsonObject setJsonObject(Comments comment) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("comment_id", comment.getCommentId());
-        jsonObject.addProperty("post_id", comment.getPostId());
-        jsonObject.addProperty("message", comment.getMessage());
-        jsonObject.addProperty("author_id", comment.getAuthorId());
-        jsonObject.addProperty("create_date", comment.getCreateDate());
-        jsonObject.addProperty("modified_date", comment.getModifiedDate());
-        jsonObject.addProperty("is_deleted", comment.getIsDeleted());
+        jsonObject.addProperty("post_id", comment.getCommentPostId());
+        jsonObject.addProperty("message", comment.getCommentMessage());
+        jsonObject.addProperty("author_id", comment.getCommentAuthorId());
+        jsonObject.addProperty("create_date", comment.getCommentCreateDate());
+        jsonObject.addProperty("modified_date", comment.getCommentModifiedDate());
+        jsonObject.addProperty("is_deleted", comment.getCommentIsDeleted());
         jsonObject.addProperty("first_name", comment.parent(Users.class).getFirstName());
         jsonObject.addProperty("last_name", comment.parent(Users.class).getLastName());
         return jsonObject;
+    }
+
+    /**
+     * Method return current date time
+     * @return String
+     */
+    protected String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(new Date().getTime());
     }
 }

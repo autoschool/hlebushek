@@ -42,10 +42,10 @@ class CommentsData extends ServiceResult {
     protected void setComment(int postId, int authorId, String message) throws ServiceGateException {
         try {
             Comments comment = new Comments();
-            comment.setPostId(postId);
-            comment.setAuthorId(authorId);
-            comment.setMessage(message);
-            // todo "create date method"
+            comment.setCommentPostId(postId);
+            comment.setCommentAuthorId(authorId);
+            comment.setCommentMessage(message);
+            comment.setCommentCreateDate(getCurrentDate());
             comment.saveIt();
         } catch (DBException e) {
             throw new ServiceGateException(e.getMessage());
