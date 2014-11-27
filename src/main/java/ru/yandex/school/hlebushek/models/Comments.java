@@ -23,39 +23,44 @@ public class Comments extends Model {
         return getInteger(COMMENT_ID);
     }
 
-    public String getMessage() {
+    public String getCommentMessage() {
         return getString(COMMENT_MESSAGE);
     }
 
-    public void setMessage(String message) {
+    public void setCommentMessage(String message) {
         setString(COMMENT_MESSAGE, message);
     }
 
-    public int getPostId() {
+    public int getCommentPostId() {
         return getInteger(COMMENT_POST_ID);
     }
 
-    public void setPostId(int postId) {
+    public void setCommentPostId(int postId) {
         setInteger(COMMENT_POST_ID, postId);
     }
 
-    public int getAuthorId() {
+    public int getCommentAuthorId() {
         return getInteger(COMMENT_AUTHOR_ID);
     }
 
-    public void setAuthorId(int authorId) {
+    public void setCommentAuthorId(int authorId) {
         setInteger(COMMENT_AUTHOR_ID, authorId);
     }
 
-    public String getCreateDate() {
+    public String getCommentCreateDate() {
         if (getDate(COMMENT_CREATE_DATE) != null) {
             return getDate(COMMENT_CREATE_DATE).toString();
         } else {
             return null;
         }
     }
-
-    public String getModifiedDate() {
+    public void setCommentCreateDate(String date) {
+        if (date != null && !date.isEmpty()) {
+            setString(COMMENT_CREATE_DATE, date);
+        }
+    }
+    
+    public String getCommentModifiedDate() {
         if (getDate(COMMENT_MODIFIED_DATE) != null) {
             return getDate(COMMENT_MODIFIED_DATE).toString();
         } else {
@@ -63,11 +68,12 @@ public class Comments extends Model {
         }
     }
 
-    public Boolean getIsDeleted() {
+    public Boolean getCommentIsDeleted() {
         return getBoolean(COMMENT_IS_DELETED);
     }
 
-    public void setIsDeleted(Boolean isDeleted) {
+    public void setCommentIsDeleted(Boolean isDeleted) {
         setBoolean(COMMENT_IS_DELETED, isDeleted);
     }
+    
 }

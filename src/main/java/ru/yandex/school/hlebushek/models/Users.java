@@ -84,11 +84,11 @@ public class Users extends Model {
         setString(LAST_NAME, lastName);
     }
 
-    public Boolean getIsDeleted() {
+    public Boolean getUserIsDeleted() {
         return getBoolean(USER_IS_DELETED);
     }
 
-    public void setIsDeleted(Boolean isDeleted) {
+    public void setUserIsDeleted(Boolean isDeleted) {
         setBoolean(USER_IS_DELETED, isDeleted);
     }
     public Integer getVkId() {

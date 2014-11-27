@@ -46,12 +46,12 @@ public class GetComments {
     private JsonObject setJsonObjectComment(Comments comment) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("comment_id", comment.getCommentId());
-        jsonObject.addProperty("post_id", comment.getPostId());
-        jsonObject.addProperty("message", comment.getMessage());
-        jsonObject.addProperty("author", comment.getAuthorId());
-        jsonObject.addProperty("create_date", comment.getCreateDate());
-        jsonObject.addProperty("modified_date", comment.getModifiedDate());
-        jsonObject.addProperty("is_deleted", comment.getIsDeleted());
+        jsonObject.addProperty("post_id", comment.getCommentPostId());
+        jsonObject.addProperty("message", comment.getCommentMessage());
+        jsonObject.addProperty("author", comment.getCommentAuthorId());
+        jsonObject.addProperty("create_date", comment.getCommentCreateDate());
+        jsonObject.addProperty("modified_date", comment.getCommentModifiedDate());
+        jsonObject.addProperty("is_deleted", comment.getCommentIsDeleted());
         return jsonObject;
     }
 }

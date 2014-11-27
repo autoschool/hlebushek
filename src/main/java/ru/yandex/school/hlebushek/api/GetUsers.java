@@ -49,7 +49,7 @@ public class GetUsers {
         jsonObject.addProperty("last_name", user.getLastName());
         jsonObject.addProperty("create_date", user.getCreateDate());
         jsonObject.addProperty("modified_date", user.getModifiedDate());
-        jsonObject.addProperty("is_deleted", user.getIsDeleted());
+        jsonObject.addProperty("is_deleted", user.getUserIsDeleted());
         return jsonObject;
     }
 }
