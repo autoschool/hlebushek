@@ -7,7 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class ServiceGate extends ServiceResult {
 
     /**
@@ -24,7 +24,7 @@ public class ServiceGate extends ServiceResult {
         ServiceGateException exception = null;
         JsonElement json = null;
         try {
-            json = new GetUsers().getUser(userId, login);
+            json = new UsersData().getUser(userId, login);
         }catch (ServiceGateException e) {
             exception = e;
         }
@@ -46,11 +46,34 @@ public class ServiceGate extends ServiceResult {
         ServiceGateException exception = null;
         JsonElement json = null;
         try {
-            json = new GetPosts().getPosts(postId, authorId);
+            json = new PostsData().getPosts(postId, authorId);
         }catch (ServiceGateException e) {
             exception = e;
         }
         return create(json, exception).toString();
+    }
+
+    /**
+     * Method return json response new post model
+     * @param authorId int author id
+     * @param title String post title
+     * @param message String post body message
+     * @return JsonObject by String
+     */
+    @PUT
+    @Path("posts")
+    public String setPost(
+            @QueryParam("author_id") int authorId,
+            @QueryParam("title") String title,
+            @QueryParam("message") String message) {
+        ServiceGateException exception = null;
+        try {
+            new PostsData().setPost(authorId, title, message);
+            // todo: need return new post
+        }catch (ServiceGateException e) {
+            exception = e;
+        }
+        return create(null, exception).toString();
     }
 
     /**
@@ -67,10 +90,33 @@ public class ServiceGate extends ServiceResult {
         ServiceGateException exception = null;
         JsonElement json = null;
         try {
-            json = new GetComments().getComments(postId, authorId);
+            json = new CommentsData().getComments(postId, authorId);
         } catch (ServiceGateException e) {
             exception = e;
         }
         return ServiceResult.create(json, exception).toString();
+    }
+
+    /**
+     * Method return json response new comment model
+     * @param postId int post id
+     * @param authorId int author is
+     * @param message String comment body
+     * @return JsonObject by String
+     */
+    @PUT
+    @Path("comments")
+    public String setComment(
+            @QueryParam("post_id") int postId,
+            @QueryParam("author_id") int authorId,
+            @QueryParam("message") String message) {
+        ServiceGateException exception = null;
+        try {
+            new CommentsData().setComment(postId, authorId, message);
+            // todo: need return new comment
+        }catch (ServiceGateException e) {
+            exception = e;
+        }
+        return create(null, exception).toString();
     }
 }

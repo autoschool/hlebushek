@@ -4,10 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
+import org.javalite.common.ConversionException;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Posts;
 
-class GetPosts extends ServiceResult {
+class PostsData extends ServiceResult {
 
     /**
      * Method return json posts model
@@ -32,6 +33,26 @@ class GetPosts extends ServiceResult {
             throw new ServiceGateException(e.getMessage());
         }
         return json;
+    }
+
+    /**
+     * Method save post to DataBase
+     * @param authorId int author id
+     * @param title String post title
+     * @param message String post body message
+     * @throws ServiceGateException
+     */
+    public void setPost(int authorId, String title, String message) throws ServiceGateException {
+        try {
+            Posts post = new Posts();
+            post.setPostAuthorId(authorId);
+            post.setTitle(title);
+            post.setPostMessage(message);
+            post.setPostCreateDate(getCurrentDate());
+            post.saveIt();
+        } catch (DBException | ConversionException e) {
+            throw new ServiceGateException(e.getMessage());
+        }
     }
 
     private JsonArray setJsonArray(LazyList<Posts> posts) {
