@@ -30,11 +30,13 @@ go to project directory
 ```
 $cd hlebushek
 ```
-create new branch:
+create & change to new branch:
 ```
-$git branch [branch_name]
+$git checkout -b [branch_name]
 ```
-change current branch:
-```
-$git checkout [branch_name]
-```
+=========
+### Run system tests
+
+  *  Install PhantomJS from [here](http://phantomjs.org)
+  *  `mvn jetty:run` - run server
+  *  run WebTest from IDE
