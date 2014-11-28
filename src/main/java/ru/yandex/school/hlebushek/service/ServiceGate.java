@@ -12,8 +12,8 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response users model
-     * @param userId int { /GetComments?userId=num }
-     * @param login String { /GetComments?login=string }
+     * @param userId int { /service/users?user_id=num }
+     * @param login String { /service/users?login=string }
      * @return JsonObject by String
      */
     @GET
@@ -34,8 +34,8 @@ public class ServiceGate extends ServiceResult {
     /**
      * Method return json response posts model
      * without parameter method return all posts
-     * @param postId int { /GetPosts?postId=num }
-     * @param authorId int { /GetPosts?authorId=num }
+     * @param postId int { /service/posts?post_id=num }
+     * @param authorId int { /service/posts?author_id=num }
      * @return JsonObject by String
      */
     @GET
@@ -55,9 +55,9 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response new post model
-     * @param authorId int author id
-     * @param title String post title
-     * @param message String post body message
+     * @param authorId int { /service/posts?author_id=num }
+     * @param title String { /service/posts?title=string }
+     * @param message String { /service/posts?message=string }
      * @return JsonObject by String
      */
     @PUT
@@ -78,8 +78,8 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response comments model
-     * @param postId int { /GetComments?postId=num }
-     * @param authorId int { /GetComments?author-id=num }
+     * @param postId int { /service/comments?post_id=num }
+     * @param authorId int { /service/comments?author_id=num }
      * @return JsonObject by String
      */
     @GET
@@ -99,9 +99,9 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response new comment model
-     * @param postId int post id
-     * @param authorId int author is
-     * @param message String comment body
+     * @param postId int { /service/comments?post_id=num }
+     * @param authorId int { /service/comments?author_id=num }
+     * @param message String { /service/comments?message=string }
      * @return JsonObject by String
      */
     @PUT
