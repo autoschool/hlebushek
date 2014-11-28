@@ -20,7 +20,7 @@ import ru.yandex.school.hlebushek.models.Users;
  *
  * @author Drak_kin
  */
-@Path("/autorization")
+@Path("/authorization")
 public class Authorization {
     @Context UriInfo uriInfo;
     @Context ServletContext servletContext;
@@ -29,19 +29,22 @@ public class Authorization {
  
     @POST
     @Path("/basic")
-    public Response Basic(@FormParam("login") String login, @FormParam("password") String pass, @Context HttpServletRequest session){
+    public Response Basic(
+            @FormParam("login") String login,
+            @FormParam("password") String pass,
+            @Context HttpServletRequest session){
         Users user = Users.first("login=?", login);
-        if(user == null){
+        if(user == null) {
             return Response.serverError().build();
-        }else{
+        } else {
             if (pass.equals(user.getPassword())){
                 servletContext.setAttribute("user_id", user.getId());
                 return Response.seeOther(uriInfo.getBaseUriBuilder().path("/..").build()).build();
             }
         }
-        
         return Response.seeOther(uriInfo.getBaseUriBuilder().path("/..").build()).build();
     }
+
     @GET
     @Path("/vk_setup")
     public Response vkSetup(){
@@ -57,6 +60,7 @@ public class Authorization {
         String authorizationUri = flow.start();
         return Response.temporaryRedirect(URI.create(authorizationUri)).build();
     }
+
     @GET
     @Path("/vk_authorize")
     public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId){

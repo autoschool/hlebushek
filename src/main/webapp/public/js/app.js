@@ -14,7 +14,7 @@ var app = angular.module('blogWebApp', [
     })())
     .config(['$routeProvider', 'ROUTES', function ($routeProvider, ROUTES) {
         $routeProvider.when(ROUTES.HOME, {
-            templateUrl: "partials/home.html",
+            templateUrl: "partials/auth.html",
             controller: "TestController"
         });
         $routeProvider.when(ROUTES.ABOUT, {
