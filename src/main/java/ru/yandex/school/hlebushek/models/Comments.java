@@ -5,7 +5,10 @@ import org.javalite.activejdbc.annotations.*;
 
 @Table("Comments")
 @IdName("comment_id")
-@BelongsTo(parent = Users.class, foreignKeyName = "author_id")
+@BelongsToParents({
+    @BelongsTo(parent = Posts.class, foreignKeyName = "post_id"),
+    @BelongsTo(parent = Users.class, foreignKeyName = "author_id")
+})
 public class Comments extends Model {
 
     private static final String COMMENT_ID = "comment_id";
@@ -51,13 +54,12 @@ public class Comments extends Model {
             return null;
         }
     }
-
     public void setCommentCreateDate(String date) {
         if (date != null && !date.isEmpty()) {
             setString(COMMENT_CREATE_DATE, date);
         }
     }
-
+    
     public String getCommentModifiedDate() {
         if (getDate(COMMENT_MODIFIED_DATE) != null) {
             return getDate(COMMENT_MODIFIED_DATE).toString();
@@ -69,4 +71,9 @@ public class Comments extends Model {
     public boolean getCommentIsDeleted() {
         return getBoolean(COMMENT_IS_DELETED);
     }
+
+    public void setCommentIsDeleted(Boolean isDeleted) {
+        setBoolean(COMMENT_IS_DELETED, isDeleted);
+    }
+    
 }
