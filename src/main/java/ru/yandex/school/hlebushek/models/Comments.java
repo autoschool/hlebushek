@@ -68,7 +68,7 @@ public class Comments extends Model {
         }
     }
 
-    public Boolean getCommentIsDeleted() {
+    public boolean getCommentIsDeleted() {
         return getBoolean(COMMENT_IS_DELETED);
     }
 
