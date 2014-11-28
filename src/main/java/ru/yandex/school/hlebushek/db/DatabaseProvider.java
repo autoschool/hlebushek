@@ -50,11 +50,8 @@ public class DatabaseProvider implements ContainerRequestFilter {
         return (value == null) ? defaultValue : value;
     }
     
-    @Context HttpServletRequest session;
-    @Context ServletContext serv;
     @Override
     public void filter(ContainerRequestContext crc) throws IOException {
-
         openConnection();
     }
     
