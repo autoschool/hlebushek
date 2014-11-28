@@ -1,5 +1,5 @@
 body {
-    background: url('img/bg.jpg') 100% 0 fixed;
+    background: url('../img/bg.jpg') 100% 0 fixed;
 }
 
 footer {
@@ -39,7 +39,7 @@ footer {
     width: 376px;
     background-size: 80%;
     display: block;
-    background: url('/public/img/logo.png') no-repeat 50% 50%;
+    background: url('../img/logo.png') no-repeat 50% 50%;
     margin: 0 auto 20px auto;
 }
 
