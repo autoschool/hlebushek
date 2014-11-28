@@ -13,17 +13,17 @@ import org.flywaydb.core.Flyway;
 import org.javalite.activejdbc.Base;
 
 @Provider
-public class DatabaseProvider implements ContainerRequestFilter{
-    private static final String DBUSER = "sa";
+public class DatabaseProvider implements ContainerRequestFilter {
+    private static final String DB_USER = "sa";
     private static String dbUrl;
     
     static {
         try {
-            dbUrl = format("jdbc:h2:mem:%s/%s,user=%s", getDbPath(), getDbName(), DBUSER);
+            dbUrl = format("jdbc:h2:mem:%s/%s,user=%s", getDbPath(), getDbName(), DB_USER);
             System.out.println(format("Starting embedded database with url '%s' ...", dbUrl));
             openConnection();
             Flyway flyway = new Flyway();
-            flyway.setDataSource(dbUrl, DBUSER, null);
+            flyway.setDataSource(dbUrl, DB_USER, null);
             flyway.migrate();
         } catch (Exception e) {
             System.out.println("Failed to start embedded database: ".concat(e.getMessage()));
@@ -33,20 +33,16 @@ public class DatabaseProvider implements ContainerRequestFilter{
 
     private static void openConnection() {
         if (!Base.hasConnection()) {
-            Base.open(org.h2.Driver.class.getName(), dbUrl, DBUSER, "");
+            Base.open(org.h2.Driver.class.getName(), dbUrl, DB_USER, "");
         }
     }
 
     private static String getDbName() {
-        String dbName = getProperty("db.name", "default");
-        System.out.println("Use DB Name: ".concat(dbName));
-        return dbName;
+        return getProperty("db.name", "default");
     }
 
     private static String getDbPath() throws IOException {
-        String dbPath = getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
-        System.out.println("Use DB Path: ".concat(dbPath));
-        return dbPath;
+        return getProperty("db.path", createTempDirectory("blog").toAbsolutePath().toString());
     }
 
     private static String getProperty(String key, String defaultValue) {
