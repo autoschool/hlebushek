@@ -9,8 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
@@ -25,7 +23,10 @@ import ru.yandex.school.hlebushek.models.Users;
 @Path("/autorization")
 public class Authorization {
     @Context UriInfo uriInfo;
-    @Context ServletContext serv;
+    @Context ServletContext servletContext;
+    private static final String VK_APP_ID ="4639315";
+    private static final String VK_APP_SECRET ="SFM9Ke2QFDQ0LJGDqo0t";
+ 
     @POST
     @Path("/basic")
     public Response Basic(@FormParam("login") String login, @FormParam("password") String pass, @Context HttpServletRequest session){
@@ -34,23 +35,21 @@ public class Authorization {
             return Response.serverError().build();
         }else{
             if (pass.equals(user.getPassword())){
-                session.setAttribute("user_id", user.getId().toString());
-                Cookie cookie = new Cookie("user_id", user.getId().toString(), "/","localhost");
-                serv.setAttribute("user_id", user.getId());
-                return Response.seeOther(URI.create("http://localhost:8080/")).cookie(new NewCookie(cookie)).build();
+                servletContext.setAttribute("user_id", user.getId());
+                return Response.seeOther(uriInfo.getBaseUriBuilder().path("/..").build()).build();
             }
         }
         
-        return Response.seeOther(URI.create("http://localhost:8080/")).build();
+        return Response.seeOther(uriInfo.getBaseUriBuilder().path("/..").build()).build();
     }
     @GET
     @Path("/vk_setup")
     public Response vkSetup(){
-        ClientIdentifier client = new ClientIdentifier("4639315", "SFM9Ke2QFDQ0LJGDqo0t");
+        ClientIdentifier client = new ClientIdentifier(VK_APP_ID, VK_APP_SECRET);
         OAuth2CodeGrantFlow.Builder builder = OAuth2ClientSupport.authorizationCodeGrantFlowBuilder(client,
                 "https://oauth.vk.com/authorize",
                 "https://oauth.vk.com/access_token");
-        builder.redirectUri("http://localhost:8080/service/autorization/vk_authorize");
+        builder.redirectUri(uriInfo.getBaseUriBuilder().path("/autorization/vk_authorize").build().toASCIIString());
         OAuth2CodeGrantFlow flow = builder.property(OAuth2CodeGrantFlow.Phase.AUTHORIZATION, "readOnly", "true").scope("notify")
                 .property(OAuth2CodeGrantFlow.Phase.ALL, "response_type", "token")
                 .property(OAuth2CodeGrantFlow.Phase.ALL, "v","5.27")
@@ -58,17 +57,17 @@ public class Authorization {
         String authorizationUri = flow.start();
         return Response.temporaryRedirect(URI.create(authorizationUri)).build();
     }
-//    @GET
-//    @Path("/vk_authorize")
-//    public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId, @Context HttpServletRequest req){
-//        Users user = Users.findFirst("vk_id=?", userId);
-//        if (user == null){
-//            user = new Users();
-//            user.setVkId(Integer.parseInt(userId));
-//        }else{
-//            req.setAttribute("user_id", user.getId());
-//        }
-//        user.setToken(token);
-//        return Response.temporaryRedirect(URI.create("http://localhost:8080/#/all_posts")).build();
-//    }
+    @GET
+    @Path("/vk_authorize")
+    public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId){
+        Users user = Users.findFirst("vk_id=?", userId);
+        if (user == null){
+            user = new Users();
+            user.setVkId(Integer.parseInt(userId));
+            user.save();
+        }
+        servletContext.setAttribute("user_id", user.getId());
+        user.setToken(token);
+        return Response.temporaryRedirect(uriInfo.getBaseUriBuilder().path("/../#/all_posts").build()).build();
+    }
 }
