@@ -10,10 +10,12 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
+import org.junit.Ignore;
 
 /**
  * Created by mipan on 23.11.2014.
  */
+@Ignore("no phantom yet")
 public class hlebushekTest {
     public WebDriver driver;
     private String baseUrl = "http://localhost:8080";

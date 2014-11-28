@@ -3,8 +3,11 @@ package ru.yandex.school.hlebushek.db;
 import java.io.IOException;
 import static java.lang.String.format;
 import static java.nio.file.Files.createTempDirectory;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 import org.flywaydb.core.Flyway;
 import org.javalite.activejdbc.Base;
@@ -50,8 +53,12 @@ public class DatabaseProvider implements ContainerRequestFilter{
         final String value = System.getProperty(key);
         return (value == null) ? defaultValue : value;
     }
+    
+    @Context HttpServletRequest session;
+    @Context ServletContext serv;
     @Override
     public void filter(ContainerRequestContext crc) throws IOException {
+
         openConnection();
     }
     

@@ -1,6 +1,7 @@
 package ru.yandex.school.hlebushek.service;
 
 import java.net.URI;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -8,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -23,6 +25,7 @@ import ru.yandex.school.hlebushek.models.Users;
 @Path("/autorization")
 public class Authorization {
     @Context UriInfo uriInfo;
+    @Context ServletContext serv;
     @POST
     @Path("/basic")
     public Response Basic(@FormParam("login") String login, @FormParam("password") String pass, @Context HttpServletRequest session){
@@ -31,8 +34,10 @@ public class Authorization {
             return Response.serverError().build();
         }else{
             if (pass.equals(user.getPassword())){
-                session.setAttribute("user_id", user.getId());
-                return Response.seeOther(URI.create("http://localhost:8080/")).cookie(new NewCookie("user_id", user.getId().toString())).build();
+                session.setAttribute("user_id", user.getId().toString());
+                Cookie cookie = new Cookie("user_id", user.getId().toString(), "/","localhost");
+                serv.setAttribute("user_id", user.getId());
+                return Response.seeOther(URI.create("http://localhost:8080/")).cookie(new NewCookie(cookie)).build();
             }
         }
         
@@ -53,17 +58,17 @@ public class Authorization {
         String authorizationUri = flow.start();
         return Response.temporaryRedirect(URI.create(authorizationUri)).build();
     }
-    @GET
-    @Path("/vk_authorize")
-    public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId, @Context HttpServletRequest req){
-        Users user = Users.findFirst("vk_id=?", userId);
-        if (user == null){
-            user = new Users();
-            user.setVkId(Integer.parseInt(userId));
-        }else{
-            req.setAttribute("user_id", user.getId());
-        }
-        user.setToken(token);
-        return Response.temporaryRedirect(URI.create("http://localhost:8080/#/all_posts")).build();
-    }
+//    @GET
+//    @Path("/vk_authorize")
+//    public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId, @Context HttpServletRequest req){
+//        Users user = Users.findFirst("vk_id=?", userId);
+//        if (user == null){
+//            user = new Users();
+//            user.setVkId(Integer.parseInt(userId));
+//        }else{
+//            req.setAttribute("user_id", user.getId());
+//        }
+//        user.setToken(token);
+//        return Response.temporaryRedirect(URI.create("http://localhost:8080/#/all_posts")).build();
+//    }
 }
