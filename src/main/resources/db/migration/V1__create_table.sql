@@ -11,6 +11,7 @@ CREATE TABLE `Users` (
   `photo_200` BINARY NULL ,
   `is_deleted` BOOLEAN NULL DEFAULT False ,
   `vk_id` INT NULL ,
+  `vk_token` BINARY NULL ,
   `first_name` VARCHAR(45) NULL ,
   `last_name` VARCHAR(45) NULL ,
   PRIMARY KEY (`user_id`) )
