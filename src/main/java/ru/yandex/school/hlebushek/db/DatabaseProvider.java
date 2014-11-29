@@ -54,6 +54,4 @@ public class DatabaseProvider implements ContainerRequestFilter {
     public void filter(ContainerRequestContext crc) throws IOException {
         openConnection();
     }
-    
-    
 }

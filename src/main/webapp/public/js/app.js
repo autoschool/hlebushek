@@ -4,6 +4,8 @@ var app = angular.module('blogWebApp', [
     .constant('ROUTES', (function () {
         return {
             HOME: "/",
+            AUTH: "/auth",
+            REG: "/reg",
             ABOUT: "/about",
             ALL_POSTS: "/all_posts",
             ALL_POSTS_USER: "/all_posts/user:userId",
@@ -13,9 +15,17 @@ var app = angular.module('blogWebApp', [
         }
     })())
     .config(['$routeProvider', 'ROUTES', function ($routeProvider, ROUTES) {
-        $routeProvider.when(ROUTES.HOME, {
+        $routeProvider.when(ROUTES.AUTH, {
             templateUrl: "partials/auth.html",
             controller: "TestController"
+        });
+        $routeProvider.when(ROUTES.REG, {
+            templateUrl: "partials/reg.html",
+            controller: "TestController"
+        });
+        $routeProvider.when(ROUTES.HOME, {
+            templateUrl: "./partials/all-posts.html",
+            controller: "PostsController"
         });
         $routeProvider.when(ROUTES.ABOUT, {
             templateUrl: "partials/about.html",
@@ -44,7 +54,7 @@ var app = angular.module('blogWebApp', [
         $routeProvider.otherwise({ redirectTo: ROUTES.ERROR });
     }])
     .controller('TestController', function () {
-        console.log("TestController");
+
     })
     .run(['$rootScope', 'ROUTES', function ($rootScope, ROUTES) {
         $rootScope.ROUTES = ROUTES;
