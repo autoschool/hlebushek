@@ -2,13 +2,7 @@
     <div class="row">
 
         <!-- Blog Sidebar Widgets Column -->
-        <div class="col-md-4">
-            <div class="well parts_bg">
-                <h4>{{ post.first_name + ' ' + post.last_name }}</h4>
-                <p>Some short author info, or some other stuff ...</p>
-            </div>
-        </div>
-        <div class="col-lg-8 main_col parts_bg">
+        <div class="single_col main_col parts_bg">
             <h1>{{ post.title }}</h1>
             <p ng-show="{{ post.create_date }}">
                 <span class="glyphicon glyphicon-time">

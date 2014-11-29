@@ -1,24 +1,62 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="well parts_bg">
-                <h4>Author name</h4>
 
-                <p>Some short author info, or some other stuff ...</p>
-                <p>Authorization : {{ auth }}</p>
+    <!-- For authorization account -->
+    <div class="row" ng-if="auth">
+        <div class="col-md-4">
+            <div class="parts_bg panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ user.first_name + ' ' + user.last_name }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>View this account
+                        <a href="{{ '#/all_posts/user' + user.user_id }}">posts</a>
+                    </p>
+                    <a class="btn btn-danger btn-md" ng-click="logOut()" href="{{ '#' + ROUTES.AUTH }}">Sign out</a>
+                </div>
             </div>
         </div>
         <div class="col-lg-8 main_col parts_bg">
             <h4>Add new post:</h4>
-            <fieldset disabled="{{ auth }}">
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control form_input" placeholder="Enter a title">
-                        <textarea class="form-control" rows="3" title=""></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit post</button>
-                </form>
-            </fieldset>
+            <div class="well parts_bg">
+                <fieldset>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control form_input" placeholder="Enter a title">
+                            <textarea class="form-control" rows="3" title=""></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit post</button>
+                    </form>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <!-- For guest -->
+    <div class="row" ng-if="!auth">
+        <div class="col-md-4">
+            <div class="parts_bg panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">You are guest</h3>
+                </div>
+                <div class="panel-body">
+                    <p>For add post, you need authorization</p>
+                    <a class="btn btn-success btn-md" href="{{ '#' + ROUTES.AUTH }}">Sign in</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 main_col parts_bg">
+            <h4>Add new post:</h4>
+            <div class="well parts_bg">
+                <fieldset disabled>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control form_input" placeholder="Enter a title">
+                            <textarea class="form-control" rows="3" title=""></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit post</button>
+                    </form>
+                </fieldset>
+            </div>
         </div>
     </div>
 </div>

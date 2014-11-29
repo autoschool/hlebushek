@@ -34,12 +34,11 @@ public class Authorization {
         } else {
             Users user = Users.first("login = ? ", login);
             if (user != null && pass.equals(user.getPassword())) {
-                Cookie cookie = new Cookie("hlebushek_auth",
-                        String.valueOf(DigestUtils.md5Hex(String.valueOf(user.getUserId()))));
+                Cookie cookie = new Cookie("hlebushek_auth", String.valueOf(user.getUserId()));
                 cookie.setMaxAge(60 * 60);
                 cookie.setPath("/");
                 response.addCookie(cookie);
-                response.sendRedirect(referer);
+                response.sendRedirect(referer.concat("#/account"));
             } else {
                 response.sendRedirect(referer.concat("#/auth"));
             }

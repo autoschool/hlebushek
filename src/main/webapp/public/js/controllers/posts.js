@@ -1,5 +1,5 @@
-app.controller('PostsController', ['$scope', 'GetPosts', '$routeParams',
-    function ($scope, GetPosts, $routeParams) {
+app.controller('PostsController', ['$scope', 'GetPosts', 'GetUser', '$routeParams',
+    function ($scope, GetPosts, GetUser, $routeParams) {
         GetPosts.call({
             'author_id': $routeParams['userId'],
             'post_id': $routeParams['postId']
@@ -9,11 +9,16 @@ app.controller('PostsController', ['$scope', 'GetPosts', '$routeParams',
                 var dataPosts = result['data'];
                 if (dataPosts instanceof Array) {
                     $scope.posts = dataPosts;
+                    if ($routeParams['userId']) {
+                        GetUser.getById({
+                            'user_id': $routeParams['userId']
+                        }).then(function (response) {
+                            $scope.user = response.data['data'];
+                        });
+                    }
                 } else {
                     $scope.post = dataPosts;
                 }
-            } else {
-                console.log("Error get posts data: " + result['error'])
             }
         });
     }]);
