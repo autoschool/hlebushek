@@ -1,7 +1,7 @@
 app.controller('GetComments', ['$scope', 'GetComments', '$routeParams',
     function ($scope, GetComments, $routeParams) {
         GetComments.getById({
-            'post_id': $routeParams.postId
+            'post_id': $routeParams['postId']
         }).then(function (response) {
             var result = response.data;
             if (!result['is_error']) {
@@ -11,8 +11,6 @@ app.controller('GetComments', ['$scope', 'GetComments', '$routeParams',
                 } else {
                     $scope.comment = dataComments;
                 }
-            } else {
-                console.log("Error get comments data: " + result['error'])
             }
         });
     }]);
