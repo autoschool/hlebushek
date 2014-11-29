@@ -1,5 +1,5 @@
 var app = angular.module('blogWebApp', [
-    'ngRoute'
+    'ngRoute', 'ngCookies'
 ])
     .constant('ROUTES', (function () {
         return {
@@ -10,7 +10,7 @@ var app = angular.module('blogWebApp', [
             ALL_POSTS: "/all_posts",
             ALL_POSTS_USER: "/all_posts/user:userId",
             ALL_POSTS_POST: "/user:userId/post:postId",
-            ADD_POST: "/add_post",
+            ACCOUNT: "/account",
             ERROR: "/404"
         }
     })())
@@ -43,9 +43,9 @@ var app = angular.module('blogWebApp', [
             templateUrl: "partials/single-post.html",
             controller: "PostsController"
         });
-        $routeProvider.when(ROUTES.ADD_POST, {
-            templateUrl: "partials/add-post.html",
-            controller: "TestController"
+        $routeProvider.when(ROUTES.ACCOUNT, {
+            templateUrl: "partials/account.html",
+            controller: "AccountController"
         });
         $routeProvider.when(ROUTES.ERROR, {
             templateUrl: "partials/404.html",

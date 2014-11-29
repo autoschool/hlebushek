@@ -8,6 +8,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.glassfish.jersey.client.oauth2.ClientIdentifier;
+import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
+import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
 import ru.yandex.school.hlebushek.models.Users;
 
 @Path("/")
@@ -31,7 +34,8 @@ public class Authorization {
         } else {
             Users user = Users.first("login = ? ", login);
             if (user != null && pass.equals(user.getPassword())) {
-                Cookie cookie = new Cookie("hlebushek_auth", String.valueOf(DigestUtils.md5Hex(user.getPassword())));
+                Cookie cookie = new Cookie("hlebushek_auth",
+                        String.valueOf(DigestUtils.md5Hex(String.valueOf(user.getUserId()))));
                 cookie.setMaxAge(60 * 60);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -42,34 +46,46 @@ public class Authorization {
         }
     }
 
-    /*@GET
+    @GET
     @Path("/vk_setup")
-    public Response vkSetup(){
+    public void vkSetup(
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws IOException {
+        String referer = request.getHeader("referer");
         ClientIdentifier client = new ClientIdentifier(VK_APP_ID, VK_APP_SECRET);
         OAuth2CodeGrantFlow.Builder builder = OAuth2ClientSupport.authorizationCodeGrantFlowBuilder(client,
                 "https://oauth.vk.com/authorize",
                 "https://oauth.vk.com/access_token");
-        builder.redirectUri(uriInfo.getBaseUriBuilder().path("/authorization/vk_authorize").build().toASCIIString());
+        builder.redirectUri(referer.concat("/authorization/vk_authorize"));
         OAuth2CodeGrantFlow flow = builder.property(OAuth2CodeGrantFlow.Phase.AUTHORIZATION, "readOnly", "true")
                 .scope("notify")
                 .property(OAuth2CodeGrantFlow.Phase.ALL, "response_type", "token")
                 .property(OAuth2CodeGrantFlow.Phase.ALL, "v","5.27")
                 .build();
         String authorizationUri = flow.start();
-        return Response.temporaryRedirect(URI.create(authorizationUri)).build();
-    }*/
+        response.sendRedirect(authorizationUri);
+    }
 
-    /*@GET
+    @GET
     @Path("/vk_authorize")
-    public Response authorize(@QueryParam("access_token") String token,@QueryParam("user_id") String userId){
+    public void vkAuthorize(
+            @QueryParam("access_token") String token,
+            @QueryParam("user_id") String userId,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws IOException {
         Users user = Users.findFirst("vk_id=?", userId);
+        String referer = request.getHeader("referer");
         if (user == null){
             user = new Users();
             user.setVkId(Integer.parseInt(userId));
+            user.setToken(token);
             user.save();
         }
-        //servletContext.setAttribute("user_id", user.getId());
-        user.setToken(token);
-        return Response.temporaryRedirect(uriInfo.getBaseUriBuilder().path("/#/all_posts").build()).build();
-    }*/
+        Cookie cookie = new Cookie("hlebushek_auth",
+                String.valueOf(DigestUtils.md5Hex(String.valueOf(user.getUserId()))));
+        cookie.setMaxAge(60 * 60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        response.sendRedirect(referer);
+    }
 }
