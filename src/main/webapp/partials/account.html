@@ -19,10 +19,11 @@
             <h4>Add new post:</h4>
             <div class="well parts_bg">
                 <fieldset>
-                    <form role="form">
+                    <form role="form" action="/service/posts" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control form_input" placeholder="Enter a title">
-                            <textarea class="form-control" rows="3" title=""></textarea>
+                            <input name="author_id" value="{{ user.user_id }}" hidden="hidden" title="">
+                            <input name="title" type="text" class="form-control form_input" placeholder="Enter a title">
+                            <textarea name="message" class="form-control" rows="3" title=""></textarea>
                         </div>
                         <button type="submit" class="btn btn-default">Submit post</button>
                     </form>
