@@ -35,7 +35,7 @@ public class Authorization {
             Users user = Users.first("login = ? ", login);
             if (user != null && pass.equals(user.getPassword())) {
                 Cookie cookie = new Cookie("hlebushek_auth", String.valueOf(user.getUserId()));
-                cookie.setMaxAge(60 * 60);
+                cookie.setMaxAge(24 * 60 * 60 * 60);
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 response.sendRedirect(referer.concat("#/account"));
@@ -46,7 +46,7 @@ public class Authorization {
     }
 
     @GET
-    @Path("/vk_setup")
+    @Path("vk_setup")
     public void vkSetup(
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws IOException {
@@ -66,7 +66,7 @@ public class Authorization {
     }
 
     @GET
-    @Path("/vk_authorize")
+    @Path("vk_authorize")
     public void vkAuthorize(
             @QueryParam("access_token") String token,
             @QueryParam("user_id") String userId,
