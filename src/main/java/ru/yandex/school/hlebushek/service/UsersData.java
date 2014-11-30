@@ -31,4 +31,37 @@ class UsersData extends ServiceResult {
         }
         return json;
     }
+
+    /**
+     * Method add new user in BD
+     * @param login String
+     * @param firstName String
+     * @param lastName String
+     * @param password String
+     * @return Users new
+     * @throws ServiceGateException
+     */
+    public Users setUser(String login,
+                         String firstName,
+                         String lastName,
+                         String password) throws ServiceGateException {
+        Users user = null;
+        try {
+            if (login != null) {
+                user = Users.first("login = ?", login);
+                if (user == null) {
+                    user = new Users();
+                    user.setLogin(login);
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setPassword(password);
+                    user.saveIt();
+                }
+                user = Users.first("login = ?", login);
+            }
+        } catch (DBException e) {
+            throw new ServiceGateException(e.getMessage());
+        }
+        return user;
+    }
 }

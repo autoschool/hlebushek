@@ -1,7 +1,9 @@
 package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonElement;
+import ru.yandex.school.hlebushek.common.CookiesService;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
+import ru.yandex.school.hlebushek.models.Users;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +35,36 @@ public class ServiceGate extends ServiceResult {
             exception = e;
         }
         return create(json, exception).toString();
+    }
+
+    /**
+     * Method return json response new post model
+     * @param login String { /service/users?login=string }
+     * @param firstName String { /service/users?first_name=string }
+     * @param lastName String { /service/users?last_name=string }
+     * @param password String { /service/users?password=string }
+     */
+    @POST
+    @Path("users")
+    public void setUser(
+            @DefaultValue("") @FormParam("login") String login,
+            @DefaultValue("") @FormParam("first_name") String firstName,
+            @DefaultValue("") @FormParam("last_name") String lastName,
+            @DefaultValue("") @FormParam("password") String password,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws IOException {
+        String referer = request.getHeader("referer");
+        try {
+            if (!login.isEmpty() || !firstName.isEmpty() || !lastName.isEmpty() || !password.isEmpty()) {
+                Users user = new UsersData().setUser(login, firstName, lastName, password);
+                if (user != null) {
+                    response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
+                    response.sendRedirect(String.format("%s#/account",referer));
+                }
+            }
+        }catch (ServiceGateException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

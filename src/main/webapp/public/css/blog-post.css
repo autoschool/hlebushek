@@ -119,3 +119,12 @@ footer {
     text-decoration: none;
     color: #301A10;
 }
+
+.btn {
+    font-weight: bolder;
+}
+
+.no-posts {
+    padding: 15px;
+    text-align: center;
+}
