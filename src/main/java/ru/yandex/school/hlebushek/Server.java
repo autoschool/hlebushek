@@ -19,6 +19,5 @@ public class Server extends ResourceConfig {
                 context.register(DatabaseProvider.class);
             }
         });
-        packages(Server.class.getPackage().getName());
     }
 }

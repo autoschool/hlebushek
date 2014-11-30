@@ -3,8 +3,12 @@ package ru.yandex.school.hlebushek.service;
 import com.google.gson.JsonElement;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -12,8 +16,8 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response users model
-     * @param userId int { /GetComments?userId=num }
-     * @param login String { /GetComments?login=string }
+     * @param userId int { /service/users?user_id=num }
+     * @param login String { /service/users?login=string }
      * @return JsonObject by String
      */
     @GET
@@ -34,8 +38,8 @@ public class ServiceGate extends ServiceResult {
     /**
      * Method return json response posts model
      * without parameter method return all posts
-     * @param postId int { /GetPosts?postId=num }
-     * @param authorId int { /GetPosts?authorId=num }
+     * @param postId int { /service/posts?post_id=num }
+     * @param authorId int { /service/posts?author_id=num }
      * @return JsonObject by String
      */
     @GET
@@ -55,31 +59,33 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response new post model
-     * @param authorId int author id
-     * @param title String post title
-     * @param message String post body message
-     * @return JsonObject by String
+     * @param authorId int { /service/posts?author_id=num }
+     * @param title String { /service/posts?title=string }
+     * @param message String { /service/posts?message=string }
      */
-    @PUT
+    @POST
     @Path("posts")
-    public String setPost(
-            @QueryParam("author_id") int authorId,
-            @QueryParam("title") String title,
-            @QueryParam("message") String message) {
-        ServiceGateException exception = null;
+    public void setPost(
+            @FormParam("author_id") int authorId,
+            @DefaultValue("") @FormParam("title") String title,
+            @DefaultValue("") @FormParam("message") String message,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws IOException {
+        String referer = request.getHeader("referer");
         try {
-            new PostsData().setPost(authorId, title, message);
-            // todo: need return new post
+            if (authorId != 0 && !title.isEmpty() && !message.isEmpty()) {
+                new PostsData().setPost(authorId, title, message);
+                response.sendRedirect(String.format("%s#/all_posts/user%s",referer, authorId));
+            }
         }catch (ServiceGateException e) {
-            exception = e;
+            System.out.println(e.getMessage());
         }
-        return create(null, exception).toString();
     }
 
     /**
      * Method return json response comments model
-     * @param postId int { /GetComments?postId=num }
-     * @param authorId int { /GetComments?author-id=num }
+     * @param postId int { /service/comments?post_id=num }
+     * @param authorId int { /service/comments?author_id=num }
      * @return JsonObject by String
      */
     @GET
@@ -99,24 +105,28 @@ public class ServiceGate extends ServiceResult {
 
     /**
      * Method return json response new comment model
-     * @param postId int post id
-     * @param authorId int author is
-     * @param message String comment body
-     * @return JsonObject by String
+     * @param userId int { /service/comments?user_id=num }
+     * @param postId int { /service/comments?post_id=num }
+     * @param authorId int { /service/comments?author_id=num }
+     * @param message String { /service/comments?message=string }
      */
-    @PUT
+    @POST
     @Path("comments")
-    public String setComment(
-            @QueryParam("post_id") int postId,
-            @QueryParam("author_id") int authorId,
-            @QueryParam("message") String message) {
-        ServiceGateException exception = null;
+    public void setComment(
+            @FormParam("user_id") int userId,
+            @FormParam("post_id") int postId,
+            @FormParam("author_id") int authorId,
+            @DefaultValue("") @FormParam("message") String message,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) {
+        String referer = request.getHeader("referer");
         try {
-            new CommentsData().setComment(postId, authorId, message);
-            // todo: need return new comment
-        }catch (ServiceGateException e) {
-            exception = e;
+            if (postId != 0 && authorId != 0 && !message.isEmpty()) {
+                new CommentsData().setComment(postId, authorId, message);
+                response.sendRedirect(String.format("%s#/user%s/post%s",referer, userId, postId));
+            }
+        }catch (ServiceGateException | IOException e) {
+            System.out.println(e.getMessage());
         }
-        return create(null, exception).toString();
     }
 }

@@ -66,4 +66,5 @@ VALUES ('Внешнего вида контента, просмотра шриф
 
 INSERT INTO `comments` (`message`, `post_id`, `author_id`, `create_date`)
 VALUES ('Hillstream loach, giant gourami swampfish barred danio frilled shark beluga sturgeon. Candlefish barbel--torpedo garpike burrowing goby halfbeak Blacksmelt dragon goby, grunt sculpin lined sole oceanic flyingfish.',
-        4, (SELECT `user_id` FROM `users` where `login`='user3'), '2013-11-12 05:36:15');
+        3, (SELECT `user_id` FROM `users` where `login`='user3'), '2013-11-12 05:36:15');
+
