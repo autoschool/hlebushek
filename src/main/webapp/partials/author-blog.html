@@ -8,7 +8,7 @@
                 <div class="panel-body">{{ 'Posts count: ' + posts.length}}</div>
             </div>
         </div>
-        <div class="col-lg-8 main_col parts_bg">
+        <div ng-if="posts.length" class="col-lg-8 main_col parts_bg">
             <div ng-repeat="post in posts">
                 <h1><a href="{{ '#/user' + post.author_id + '/post' + post.post_id }}"  class="post_link">{{ post.title }}</a></h1>
                 <p ng-show="{{ post.create_date }}">
@@ -19,6 +19,9 @@
                 </p>
                 <hr>
             </div>
+        </div>
+        <div ng-if="posts.length === 0" class="col-lg-8 main_col">
+            <p class="parts_bg lead no-posts">No posts yet. For create it, go to account page</p>
         </div>
     </div>
 </div>

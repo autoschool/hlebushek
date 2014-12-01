@@ -11,6 +11,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
 import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
 import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
+import ru.yandex.school.hlebushek.common.CookiesService;
 import ru.yandex.school.hlebushek.models.Users;
 
 @Path("/")
@@ -34,10 +35,7 @@ public class Authorization {
         } else {
             Users user = Users.first("login = ? ", login);
             if (user != null && pass.equals(user.getPassword())) {
-                Cookie cookie = new Cookie("hlebushek_auth", String.valueOf(user.getUserId()));
-                cookie.setMaxAge(60 * 60);
-                cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
                 response.sendRedirect(referer.concat("#/account"));
             } else {
                 response.sendRedirect(referer.concat("#/auth"));
@@ -46,7 +44,7 @@ public class Authorization {
     }
 
     @GET
-    @Path("/vk_setup")
+    @Path("vk_setup")
     public void vkSetup(
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws IOException {
@@ -66,7 +64,7 @@ public class Authorization {
     }
 
     @GET
-    @Path("/vk_authorize")
+    @Path("vk_authorize")
     public void vkAuthorize(
             @QueryParam("access_token") String token,
             @QueryParam("user_id") String userId,

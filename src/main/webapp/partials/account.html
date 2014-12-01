@@ -11,7 +11,7 @@
                     <p>View this account
                         <a href="{{ '#/all_posts/user' + user.user_id }}">posts</a>
                     </p>
-                    <a class="btn btn-danger btn-md" ng-click="logOut()" href="{{ '#' + ROUTES.AUTH }}">Sign out</a>
+                    <a class="btn btn-danger btn-md" ng-click="logOut()" href="{{ '#' + ROUTES.ACCOUNT }}">Sign out</a>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <h4>Add new post:</h4>
             <div class="well parts_bg">
                 <fieldset>
-                    <form role="form" action="/service/posts" method="POST">
+                    <form role="form" action="./service/posts" method="POST">
                         <div class="form-group">
                             <input name="author_id" value="{{ user.user_id }}" hidden="hidden" title="">
                             <input name="title" type="text" class="form-control form_input" placeholder="Enter a title">

@@ -1,5 +1,5 @@
-app.controller('AccountController', ['$scope', '$rootScope', 'GetUser', '$cookies', '$cookieStore',
-    function ($scope, $rootScope, GetUser, $cookies, $cookieStore) {
+app.controller('AccountController', ['$scope', '$window', 'GetUser', '$cookies',
+    function ($scope, $window, GetUser, $cookies) {
         if ($cookies['hlebushek_auth']) {
             $scope.auth = true;
             GetUser.getById({
@@ -13,6 +13,11 @@ app.controller('AccountController', ['$scope', '$rootScope', 'GetUser', '$cookie
 
         // LogOut
         $scope.logOut = function() {
-            $cookieStore.remove('hlebushek_auth');
+            delete_cookie('hlebushek_auth');
+            $window.location.reload();
         }
     }]);
+
+function delete_cookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}

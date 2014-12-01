@@ -50,7 +50,7 @@
 
             <div class="well parts_bg" ng-controller="AccountController">
                 <h4>Leave a Comment:</h4>
-                <form ng-if="auth" role="form" action="/service/comments" method="POST">
+                <form ng-if="auth" role="form" action="./service/comments" method="POST">
                     <div class="form-group">
                         <input name="user_id" hidden="hidden" value="{{ post.author_id }}" title="">
                         <input name="post_id" hidden="hidden" value="{{ post.post_id }}" title="">
