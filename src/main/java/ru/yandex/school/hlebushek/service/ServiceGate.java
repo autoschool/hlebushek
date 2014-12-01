@@ -2,6 +2,7 @@ package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonElement;
 import ru.yandex.school.hlebushek.common.CookiesService;
+import ru.yandex.school.hlebushek.common.GitRepositoryState;
 import ru.yandex.school.hlebushek.exceptions.ServiceGateException;
 import ru.yandex.school.hlebushek.models.Users;
 
@@ -11,10 +12,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.Properties;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class ServiceGate extends ServiceResult {
+
+    private GitRepositoryState gitState;
 
     /**
      * Method return json response users model
@@ -160,5 +164,21 @@ public class ServiceGate extends ServiceResult {
         }catch (ServiceGateException | IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Method return git info
+     * @return GitRepositoryState
+     * @throws IOException
+     */
+    @GET
+    @Path("git_info")
+    public GitRepositoryState getGitState() throws IOException {
+        if (gitState == null) {
+            Properties properties = new Properties();
+            properties.load(getClass().getClassLoader().getResourceAsStream("git.properties"));
+            gitState = new GitRepositoryState(properties);
+        }
+        return gitState;
     }
 }
