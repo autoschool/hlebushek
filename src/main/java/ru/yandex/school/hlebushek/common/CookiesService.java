@@ -2,7 +2,7 @@ package ru.yandex.school.hlebushek.common;
 
 import javax.servlet.http.Cookie;
 
-public class CookiesService {
+public abstract class CookiesService {
 
     /**
      * Method create auth cookie with user id

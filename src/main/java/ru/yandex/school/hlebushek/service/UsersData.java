@@ -57,7 +57,6 @@ class UsersData extends ServiceResult {
                     user.setPassword(password);
                     user.saveIt();
                 }
-                user = Users.first("login = ?", login);
             }
         } catch (DBException e) {
             throw new ServiceGateException(e.getMessage());

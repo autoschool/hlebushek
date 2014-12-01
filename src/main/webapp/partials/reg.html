@@ -4,7 +4,7 @@
             <form class="form-horizontal" role="form" action="./service/users" method="POST">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input autofocus name="login" type="edit" class="form-control" id="inputEmail3" placeholder="Login">
+                        <input name="login" type="edit" class="form-control" id="inputLogin" placeholder="Login">
                     </div>
                 </div>
                 <div class="form-group">
@@ -33,4 +33,7 @@
             <a class="btn btn-link btn-lg btn-block" href="{{'#' + ROUTES.AUTH }}">Sing in</a>
         </div>
     </div>
+    <script type="text/javascript">
+        document.getElementById('inputLogin').focus();
+    </script>
 </div>

@@ -55,7 +55,7 @@ public class ServiceGate extends ServiceResult {
             @Context HttpServletResponse response) throws IOException {
         String referer = request.getHeader("referer");
         try {
-            if (!login.isEmpty() || !firstName.isEmpty() || !lastName.isEmpty() || !password.isEmpty()) {
+            if (!login.isEmpty() && !firstName.isEmpty() && !lastName.isEmpty() && !password.isEmpty()) {
                 Users user = new UsersData().setUser(login, firstName, lastName, password);
                 if (user != null) {
                     response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
