@@ -17,11 +17,11 @@ var app = angular.module('blogWebApp', [
     .config(['$routeProvider', 'ROUTES', function ($routeProvider, ROUTES) {
         $routeProvider.when(ROUTES.AUTH, {
             templateUrl: "partials/auth.html",
-            controller: "TestController"
+            controller: "MainController"
         });
         $routeProvider.when(ROUTES.REG, {
             templateUrl: "partials/reg.html",
-            controller: "TestController"
+            controller: "MainController"
         });
         $routeProvider.when(ROUTES.HOME, {
             templateUrl: "./partials/all-posts.html",
@@ -29,7 +29,7 @@ var app = angular.module('blogWebApp', [
         });
         $routeProvider.when(ROUTES.ABOUT, {
             templateUrl: "partials/about.html",
-            controller: "TestController"
+            controller: "MainController"
         });
         $routeProvider.when(ROUTES.ALL_POSTS, {
             templateUrl: "./partials/all-posts.html",
@@ -49,13 +49,15 @@ var app = angular.module('blogWebApp', [
         });
         $routeProvider.when(ROUTES.ERROR, {
             templateUrl: "partials/404.html",
-            controller: "TestController"
+            controller: "MainController"
         });
         $routeProvider.otherwise({ redirectTo: ROUTES.ERROR });
     }])
-    .controller('TestController', function () {
-
-    })
-    .run(['$rootScope', 'ROUTES', function ($rootScope, ROUTES) {
+    .run(['$rootScope', 'GitInfo', 'ROUTES', function ($rootScope, GitInfo, ROUTES) {
         $rootScope.ROUTES = ROUTES;
+        if (!$rootScope['git']) {
+            GitInfo.call().then(function(response) {
+                $rootScope['git'] = response.data;
+            });
+        }
     }]);
