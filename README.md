@@ -38,6 +38,6 @@ $git checkout -b [branch_name]
 =========
 ### Run system tests
   *  mvn clean verify
-  *  mvn test
+  *  mvn site
   
   See report in hlebushek\target\site\index.html
