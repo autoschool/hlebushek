@@ -1,17 +1,23 @@
 package web;
 
 import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 
 import static org.junit.Assert.assertEquals;
 
 public class ConnectDBWebTest extends TestBase {
 
+    private String expected = "<html><head></head><body>" +
+                                "<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">{\"data\":{\"user_id\":2,\"login\":\"testuser\",\"first_name\":\"NameТест\",\"last_name\":\"Lastname\",\"create_date\":null,\"modified_date\":null,\"is_deleted\":false},\"is_error\":false,\"error\":\"\"}" +
+                                "</pre></body></html>";
 
+    @Features("Web")
+    @Stories("DB")
     @Test
-    public void testTitleMainPage(){
-        driver.get(BS_URL+"/service/posts?post_id=1");
-        assertEquals("<html><head></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">{\"data\":{\"post_id\":1,\"title\":\"title тест\",\"message\":\"Body test\",\"author_id\":2,\"create_date\":\"2013-11-12\",\"modified_date\":null,\"is_deleted\":false,\"first_name\":\"Name\",\"last_name\":\"Lasrname\"},\"is_error\":false,\"error\":\"\"}</pre></body></html>", driver.getPageSource());
-
+    public void testDBConnect(){
+        driver.get(BS_URL+"/service/users?login=testuser");
+        assertEquals(expected, driver.getPageSource());
     }
 
 

@@ -2,7 +2,7 @@
 -- Add users
 -- -----------------------------------------------------
 INSERT INTO `users` (`login`, `password`, `first_name`, `last_name`)
-VALUES ('testuser', 'testpassword', 'Name', 'Lasrname');
+VALUES ('testuser', 'testpassword', 'NameТест', 'Lastname');
 
 INSERT INTO `users` (`login`, `password`, `first_name`, `last_name`)
 VALUES ('user1', '12qwerty', 'Vasya', 'Pupkin');
@@ -16,10 +16,6 @@ VALUES ('user3', 'qwerty098', 'Пётр', 'Иванович');
 -- -----------------------------------------------------
 -- Add posts
 -- -----------------------------------------------------
-INSERT INTO `posts` (`title`, `Message`, `author_id`, `create_date`)
-VALUES ('title тест',
-        'Body test',
-        (SELECT `user_id` FROM `users` where `login`='testuser'), '2013-11-12 05:36:15');
 
 INSERT INTO `posts` (`title`, `Message`, `author_id`, `create_date`)
 VALUES ('За словесными горами',
