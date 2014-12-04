@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     public static WebDriver driver;
-    public static final String BS_URL = "http://localhost:8080";
+    public static final String BS_URL = "http://testing.hlebushek.school.qatools.ru";
 
     @BeforeClass
     public static void openHomePage() {
