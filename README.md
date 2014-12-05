@@ -37,6 +37,7 @@ $git checkout -b [branch_name]
 
 =========
 ### Run system tests
-  *  Install PhantomJS from [here](http://phantomjs.org)
-  *  `mvn jetty:run` - run server
-  *  run WebTest from IDE
+  *  mvn clean verify
+  *  mvn site
+  
+  See report in hlebushek\target\site\index.html
