@@ -63,7 +63,7 @@ public class ServiceGate extends ServiceResult {
                 Users user = new UsersData().setUser(login, firstName, lastName, password);
                 if (user != null) {
                     response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
-                    response.sendRedirect(String.format("%s#/account",referer));
+                    response.sendRedirect(String.format("%s#/add-new_post",referer));
                 }
             }
         }catch (ServiceGateException e) {
