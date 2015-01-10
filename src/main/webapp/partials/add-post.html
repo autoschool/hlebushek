@@ -3,7 +3,7 @@
     <!-- For authorization account -->
     <div class="row" ng-if="auth">
         <div class="col-md-4">
-            <div class="parts_bg panel panel-primary">
+            <div class="parts_bg panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="panel-title" id="username-heading">{{ user.first_name + ' ' + user.last_name }}</h3>
                 </div>
@@ -11,7 +11,7 @@
                     <p>View this account
                         <a href="{{ '#/all_posts/user' + user.user_id }}">posts</a>
                     </p>
-                    <a class="btn btn-danger btn-md" ng-click="logOut()" href="{{ '#' + ROUTES.HOME }}">Sign out</a>
+                    <a class="btn orange-btn btn-md" ng-click="logOut()" href="{{ '#' + ROUTES.HOME }}">Sign out</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
                             <input name="title" type="text" class="form-control form_input" placeholder="Enter a title" id="post-title-input">
                             <textarea name="message" class="form-control" rows="3" title="" id="post-text-input"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-default" id="submit_post_btn">Submit post</button>
+                        <button type="submit" class="btn orange-btn" id="submit_post_btn">Submit post</button>
                     </form>
                 </fieldset>
             </div>
@@ -37,11 +37,11 @@
         <div class="col-md-4">
             <div class="parts_bg panel panel-danger">
                 <div class="panel-heading">
-                    <h3 class="panel-title">You are guest</h3>
+                    <h3 class="panel-title bold">Hello, guest!</h3>
                 </div>
                 <div class="panel-body">
-                    <p>For add post, you need authorization</p>
-                    <a class="btn btn-success btn-md" href="{{ '#' + ROUTES.AUTH }}">Sign in</a>
+                    <p>Please logIn to add a post.</p>
+                    <a class="btn orange-btn btn-md" href="{{ '#' + ROUTES.AUTH }}">Sign in</a>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                             <input type="text" class="form-control form_input" placeholder="Enter a title">
                             <textarea class="form-control" rows="3" title=""></textarea>
                         </div>
-                        <button type="submit" class="btn btn-default">Submit post</button>
+                        <button type="submit" class="btn orange-btn">Submit post</button>
                     </form>
                 </fieldset>
             </div>
