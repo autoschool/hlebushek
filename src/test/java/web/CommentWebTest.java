@@ -28,6 +28,7 @@ public class CommentWebTest {
         commentingUser.openHomeUrl();
         commentingUser.openFirstPostPage();
         commentingUser.submitComment(testComment);
+        commentingUser.waitSeconds(5);
         commentingUser.commentShouldBe(testComment);
     }
 

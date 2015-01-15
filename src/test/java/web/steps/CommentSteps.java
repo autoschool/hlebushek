@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -33,7 +35,12 @@ public class CommentSteps extends UserSteps {
 
     @Step("Comment assertion")
     public void commentShouldBe(String expectedCcomment){
-        String commentText = driver.findElement(By.xpath(".//*[@id='comments-wrapper']/div[1]/div/p")).getText();
+        String commentText = driver.findElement(By.cssSelector(".single-comment:last-child > div >p")).getText();
         assertThat(commentText, equalTo(expectedCcomment));
+    }
+
+    @Step("Set timeout")
+    public void waitSeconds(int seconds){
+        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 }
