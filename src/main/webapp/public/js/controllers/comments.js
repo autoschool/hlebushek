@@ -13,4 +13,7 @@ app.controller('GetComments', ['$scope', 'GetComments', '$routeParams',
                 }
             }
         });
+        $scope.addComment = function(comment){
+            $scope.comments.push(comment);
+        };
     }]);
