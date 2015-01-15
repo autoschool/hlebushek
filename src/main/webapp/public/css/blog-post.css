@@ -185,3 +185,8 @@ footer {
 .gif-emoj{
     width: 100px;
 }
+
+.err {
+    display: inline-block;
+    color: #DE6464;
+}

@@ -21,11 +21,11 @@ class CommentsData extends ServiceResult {
         try {
             LazyList<Comments> comments;
             if (postId != 0 && authorId == 0) {
-                comments = Comments.where(String.format("post_id = '%s'", postId)).orderBy("create_date desc");
+                comments = Comments.where(String.format("post_id = '%s'", postId)).orderBy("create_date ASC");
                 json = setJsonArray(comments);
             }
             if (postId == 0 && authorId != 0) {
-                comments = Comments.where(String.format("author_id = '%s'", authorId)).orderBy("create_date desc");
+                comments = Comments.where(String.format("author_id = '%s'", authorId)).orderBy("create_date ASC");
                 json = setJsonArray(comments);
             }
         } catch (DBException e) {

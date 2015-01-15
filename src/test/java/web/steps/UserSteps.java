@@ -14,7 +14,7 @@ public class UserSteps {
     protected static String testPass = "testpassword";
 
     protected static String homeUrl = "http://localhost:8080";
-    protected static String loginUrl = "/#/auth";
+    protected static String loginUrl = "/#/auth/";
 
     //page elements
     protected static String loginInputId = "inputLogin";

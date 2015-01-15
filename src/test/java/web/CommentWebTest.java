@@ -10,7 +10,7 @@ import web.steps.CommentSteps;
 /**
  * Created by ksenie on 08.01.15.
  */
-public class CommentTest {
+public class CommentWebTest {
     private WebDriver driver;
     private CommentSteps commentingUser;
 
@@ -23,7 +23,7 @@ public class CommentTest {
     }
 
     @Test
-    public void commentIsPublishe(){
+    public void commentIsPublished(){
         commentingUser.userLogin();
         commentingUser.openHomeUrl();
         commentingUser.openFirstPostPage();
