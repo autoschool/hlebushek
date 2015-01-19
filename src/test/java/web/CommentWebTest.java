@@ -23,10 +23,11 @@ public class CommentWebTest {
     }
 
     @Test
+
     public void commentIsPublished(){
-        commentingUser.userLogin();
+        commentingUser.login();
         commentingUser.openHomeUrl();
-        commentingUser.openFirstPostPage();
+        commentingUser.openPostPageByIndex(2);
         commentingUser.submitComment(testComment);
         commentingUser.waitSeconds(5);
         commentingUser.commentShouldBe(testComment);

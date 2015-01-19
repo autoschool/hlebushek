@@ -29,8 +29,7 @@ public class CreateUserWebTest {
     @Test
     public void userIsCreated(){
         newUser.openRegPage();
-        newUser.fillRegForm(userLogin, userFirstName, userLastName, userPassword);
-        newUser.saveNewUser();
+        newUser.fillAndSaveForm(userLogin, userFirstName, userLastName, userPassword);
         newUser.userShouldBe(userFirstName, userLastName);
     }
 
@@ -38,6 +37,4 @@ public class CreateUserWebTest {
     public void quitNewUser(){
         newUser.quit();
     }
-
-
 }

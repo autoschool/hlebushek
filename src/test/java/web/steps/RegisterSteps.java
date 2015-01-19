@@ -1,8 +1,9 @@
 package web.steps;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
+import web.pages.AddPostPage;
+import web.pages.RegPage;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -10,42 +11,29 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by ksenie on 07.01.15.
  */
-public class RegisterSteps extends UserSteps {
+public class RegisterSteps extends LoginSteps {
 
-    private static String registerUrl = "/#/reg";
+    private RegPage regPage;
+    private AddPostPage addPostPage;
 
-    //page elements
-    private static String loginInputID = "inputLogin";
-    private static String firstNameInputID = "inputFirstName";
-    private static String lastNameInputID = "inputLastName";
-    private static String passwordInputID = "inputPassword3";
-    private static String saveAccountBtnID = "createUserBtn";
-    private static String userNameStringID = "username-heading";
+    public RegisterSteps(WebDriver driver){
+        super(driver);
+        regPage = new RegPage(driver);
+    }
 
-
-    public RegisterSteps(WebDriver driver){ super(driver); }
-
-    @Step("Open registration form")
+    @Step("Open register page")
     public void openRegPage(){
-        driver.get(homeUrl+registerUrl);
+        regPage.open();
     }
 
     @Step("Create test user")
-    public void fillRegForm(String userLogin, String userFirstName, String userLastName, String userPassword){
-        driver.findElement(By.id(loginInputID)).sendKeys(userLogin);
-        driver.findElement(By.id(firstNameInputID)).sendKeys(userFirstName);
-        driver.findElement(By.id(lastNameInputID)).sendKeys(userLastName);
-        driver.findElement(By.id(passwordInputID)).sendKeys(userPassword);
-    }
-
-    @Step("Save new user")
-    public void saveNewUser(){
-        driver.findElement(By.id(saveAccountBtnID)).click();
+    public void fillAndSaveForm(String userLogin, String userFirstName, String userLastName, String userPassword){
+        addPostPage = regPage.registerUser(userLogin, userFirstName, userLastName, userPassword);
     }
 
     @Step("Check if new user is loged in to the blog")
     public void userShouldBe(String userFirstName, String userLastName){
-        String userName = driver.findElement(By.id(userNameStringID)).getText();
+        String userName = addPostPage.getUserNameHeading().getText();
         assertThat(userName, equalTo(userFirstName + " " + userLastName));
     }
 
