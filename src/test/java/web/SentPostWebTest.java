@@ -26,7 +26,7 @@ public class SentPostWebTest {
 
     @Test
     public void PostIsPublished(){
-        postingUser.userLogin();
+        postingUser.login();
         postingUser.addPost(testPostTitle, testPostBody);
         postingUser.openPostPageByTitle(testPostTitle);
         postingUser.postShouldBe(testPostTitle, testPostBody);

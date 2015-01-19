@@ -3,6 +3,9 @@ package web.steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
+import web.pages.AuthPage;
+import web.pages.MainPage;
+import web.pages.SinglePostPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,31 +15,31 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by ksenie on 07.01.15.
  */
-public class CommentSteps extends UserSteps {
+public class CommentSteps extends LoginSteps {
 
-    //web elements
-    private static String postLinkClass = "post_link";
-    private static String commentInputId = "comment-input";
-    private static String commentSubmitBtnId = "submit-comment-btn";
+    private SinglePostPage postPage;
+    private MainPage mainPage;
 
-    public CommentSteps(WebDriver driver){ super(driver); }
+    public CommentSteps(WebDriver driver){
+        super(driver);
+        mainPage = new MainPage(driver);
+    }
 
-    @Step("Find and open first post page from the all posts")
-    public void openFirstPostPage(){
-        driver.findElement(By.cssSelector(".post-wrapper:first-child")).findElement(By.className(postLinkClass)).click();
+    @Step("Find and open single post page by index")
+    public void openPostPageByIndex(int postIndex){
+        postPage = mainPage.openSinglePostPage(postIndex);
     }
 
     @Step("Fill and submit comment form")
     public void submitComment(String comment){
-        driver.findElement(By.id(commentInputId)).sendKeys(comment);
-        driver.findElement(By.id(commentSubmitBtnId)).click();
-
+        postPage.getCommentForm().getCommentInput().sendKeys(comment);
+        postPage.getCommentForm().getSubmitCommentBtn().click();
     }
 
     @Step("Comment assertion")
-    public void commentShouldBe(String expectedCcomment){
+    public void commentShouldBe(String expectedComment){
         String commentText = driver.findElement(By.cssSelector(".single-comment:last-child > div >p")).getText();
-        assertThat(commentText, equalTo(expectedCcomment));
+        assertThat(commentText, equalTo(expectedComment));
     }
 
     @Step("Set timeout")

@@ -1,44 +1,45 @@
 package web.steps;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
+import web.pages.AddPostPage;
+import web.pages.MainPage;
+import web.pages.SinglePostPage;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by ksenie on 30.12.14.
  */
-public class PostSteps extends UserSteps {
+public class PostSteps extends LoginSteps{
 
-    //page elements
-    private static String addPostId = "nav_addPost";
-    private static String postTitleInputId = "post-title-input";
-    private static String postTextInputId = "post-text-input";
-    private static String submitPostBtnId = "submit_post_btn";
-    private static String postTitleId = "post-title";
-    private static String postBodyId = "post-message";
+    private AddPostPage addPostPage;
+    private MainPage mainPage;
+    private SinglePostPage singlePostPage;
 
-    public PostSteps(WebDriver driver) { super(driver); }
+    public PostSteps(WebDriver driver) {
+        super(driver);
+        addPostPage = new AddPostPage(driver);
+    }
 
     @Step("Send test post")
-    public static void addPost(String title, String text){
-        driver.findElement(By.id(addPostId)).click();
-        driver.findElement(By.id(postTitleInputId)).sendKeys(title);
-        driver.findElement(By.id(postTextInputId)).sendKeys(text);
-        driver.findElement(By.id(submitPostBtnId)).click();
+    public void addPost(String title, String text){
+        addPostPage.getPostForm().getPostTitleInput().sendKeys(title);
+        addPostPage.getPostForm().getPostBodyInput().sendKeys(text);
+        addPostPage.getPostForm().getSubmitPostBtn().click();
     }
 
     @Step("Go to single post page")
-    public static void openPostPageByTitle(String postTitle){
-        driver.get(homeUrl);
-        driver.findElement(By.linkText(postTitle)).click();
+    public void openPostPageByTitle(String postTitle){
+        mainPage = addPostPage.openAllPostPage();
+        singlePostPage = mainPage.openSinglePostPage(postTitle);
     }
 
     @Step("Post title and body assertion")
-    public static void postShouldBe(String expectedTitle, String expectedText){
-        String postTitle = driver.findElement(By.id(postTitleId)).getText();
-        String postText = driver.findElement(By.id(postBodyId)).getText();
+    public void postShouldBe(String expectedTitle, String expectedText){
+        String postTitle = singlePostPage.getPostTitle().getText();
+        String postText = singlePostPage.getPostMessage().getText();
         assertThat(postTitle, equalTo(expectedTitle));
         assertThat(postText, equalTo(expectedText));
     }
