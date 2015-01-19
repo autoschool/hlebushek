@@ -21,4 +21,5 @@ app.controller('PostsController', ['$scope', 'GetPosts', 'GetUser', '$routeParam
                 }
             }
         });
+
     }]);

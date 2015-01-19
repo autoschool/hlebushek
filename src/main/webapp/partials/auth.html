@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="parts_bg auth_form form_wrap">
-            <form class="form-horizontal" role="form" action="./authorization/basic" method="POST">
+            <form class="form-horizontal" role="form" action="./authorization/basic" method="POST" id="auth-form">
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input name="login" type="edit" class="form-control" id="inputLogin" placeholder="Login">
@@ -14,15 +14,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-success btn-md btn-block">Sign in</button>
+                        <button type="submit" class="btn orange-btn btn-md btn-block" id="sign_btn">Sign in</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-8">
-                        <a class="btn btn-link btn-md btn-block" href="{{'#' + ROUTES.REG }}">Create account</a>
+                        <a class="btn btn-brown btn-md btn-block" href="{{'#' + ROUTES.REG }}">Create account</a>
                     </div>
                     <div class="col-xs-offset-7">
-                        <a class="btn btn-link btn-md btn-block" href="#">Help</a>
+                        <a class="btn btn-brown btn-md btn-block" href="#">Help</a>
                     </div>
                 </div>
             </form>

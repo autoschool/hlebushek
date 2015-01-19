@@ -36,7 +36,7 @@ public class Authorization {
             Users user = Users.first("login = ? ", login);
             if (user != null && pass.equals(user.getPassword())) {
                 response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
-                response.sendRedirect(referer.concat("#/account"));
+                response.sendRedirect(referer.concat("#/add-new_post"));
             } else {
                 response.sendRedirect(referer.concat("#/auth"));
             }

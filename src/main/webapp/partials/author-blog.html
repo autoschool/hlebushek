@@ -1,7 +1,7 @@
 <div class="container" >
     <div class="row">
         <div class="col-md-4">
-            <div class="parts_bg panel panel-primary">
+            <div class="parts_bg panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ user.first_name + ' ' + user.last_name }}</h3>
                 </div>
@@ -17,11 +17,20 @@
                 <p class="medium_txt">
                     {{ post.message }}
                 </p>
+                <p>
+                    <small>
+                        <a href="{{ '#/user' + post.author_id + '/post' + post.post_id }}" id="show_comments" class="post_link">
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            Comments
+                        </a>
+                    </small>
+                </p>
                 <hr>
             </div>
         </div>
-        <div ng-if="posts.length === 0" class="col-lg-8 main_col">
-            <p class="parts_bg lead no-posts">No posts yet. For create it, go to account page</p>
+        <div ng-if="posts.length === 0" class="col-lg-8 main_col parts_bg no-posts">
+            <p><img src="/public/img/kittybread.gif" alt class="gif-emoj"></p>
+            <p class=" lead no-posts">No posts added. To create one, go to <a href="{{ '#' + ROUTES.ADD_POST }}" class="btn-brown">Add post</a> page.</p>
         </div>
     </div>
 </div>
