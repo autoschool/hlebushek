@@ -157,14 +157,8 @@
                 <artifactId>activejdbc-instrumentation</artifactId>
                 <version>1.4.9</version>
                 <executions>
-                    <!--<execution>-->
-                        <!--<phase>process-classes</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>instrument</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
                     <execution>
-                        <phase>process-test-classes</phase>
+                        <phase>process-classes</phase>
                         <goals>
                             <goal>instrument</goal>
                         </goals>
