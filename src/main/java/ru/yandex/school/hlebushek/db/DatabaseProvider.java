@@ -28,10 +28,10 @@ public class DatabaseProvider implements ContainerRequestFilter {
         } catch (Exception e) {
             System.out.println("Failed to start embedded database: ".concat(e.getMessage()));
             System.exit(1);
-        }
+       }
     }
 
-    private static void openConnection() {
+    public static void openConnection() {
         if (!Base.hasConnection()) {
             Base.open(org.h2.Driver.class.getName(), dbUrl, DB_USER, "");
         }
