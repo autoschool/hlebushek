@@ -122,19 +122,13 @@
             <version>2.15</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.10.19</version>
-        </dependency>
-
         <!-- Allure -->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-junit-adaptor</artifactId>
             <version>${allure.version}</version>
         </dependency>
-        
+
     </dependencies>
 
     <build>
