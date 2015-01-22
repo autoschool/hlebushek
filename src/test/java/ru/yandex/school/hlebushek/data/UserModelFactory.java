@@ -1,7 +1,5 @@
 package ru.yandex.school.hlebushek.data;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import ru.yandex.school.hlebushek.models.Users;
 
 import java.util.Arrays;
@@ -10,16 +8,7 @@ import java.util.List;
 /**
  * Created by Drak_kin on 22.01.2015.
  */
-public class UserModelFactory extends TypeSafeMatcher<Users> {
-    @Override
-    protected boolean matchesSafely(Users item) {
-        return false;
-    }
-
-    @Override
-    public void describeTo(Description description) {
-            description.appendText("error");
-    }
+public class UserModelFactory {
     public static List<Users> createUsersList(){
 
 
