@@ -16,14 +16,14 @@ public class UsersDataTest {
     }
 
     @Test
-    public void GetUserTest() throws Exception {
+    public void getUserTest() throws Exception {
         JsonElement test_user= getUser(1,"");
         assertNotNull("Админ не получен",test_user);
     }
     @Test
-    public void GetUserTest2() throws Exception {
-        JsonElement test_user= getUser(0,"user1");
-        assertNotNull("user1 не получен",test_user);
+    public void getUserTest2() throws Exception {
+        JsonElement testUser= getUser(0,"user1");
+        assertNotNull("user1 не получен",testUser);
     }
 
 }
