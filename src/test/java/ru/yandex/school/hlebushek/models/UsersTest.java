@@ -1,27 +1,38 @@
 package ru.yandex.school.hlebushek.models;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ru.yandex.school.hlebushek.data.UserModelFactory;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
-import ru.yandex.school.hlebushek.matchers.UserWrapperFactory;
 
-import java.util.List;
+import java.util.Collection;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.yandex.qatools.matchers.collection.HasSameItemsAsListMatcher.hasSameItemsAsList;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static ru.yandex.school.hlebushek.matchers.UsersMatcher.same;
 
 public class UsersTest {
-    private List<Users> allExpectedUsers = UserModelFactory.createUsersList();
-    private List<Users> allActualUsers = Users.findAll();
+    Users testUser = new Users();
+    private static final String TEST_LOGIN="login";
+    private static final String TEST_PASSWORD="password";
+    private static final String TEST_FIRST_NAME="firstName";
+    private static final String TEST_LAST_NAME="lastName";
+    Collection<Users> allActualUsers = Users.findAll();
     @BeforeClass
     public static void setUp() throws Exception {
         DatabaseProvider.openConnection();
     }
-
+    @Before
+    public void prepare(){
+        testUser.setLogin(TEST_LOGIN);
+        testUser.setPassword(TEST_PASSWORD);
+        testUser.setFirstName(TEST_FIRST_NAME);
+        testUser.setLastName(TEST_LAST_NAME);
+        testUser.saveIt();
+    }
     @Test
     public void testGetUsersTest() throws Exception {
-        assertThat(allExpectedUsers, hasSameItemsAsList(allActualUsers).useWrapperFactory(new UserWrapperFactory()));
+        assertThat(allActualUsers, hasItem(same(testUser)));
     }
 
 

@@ -36,7 +36,7 @@ abstract class ServiceResult {
      * @param user Users
      * @return JsonObject
      */
-    protected static JsonObject setJsonObject(Users user) {
+    public static JsonObject setJsonObject(Users user) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user_id", user.getUserId());
         jsonObject.addProperty("login", user.getLogin());

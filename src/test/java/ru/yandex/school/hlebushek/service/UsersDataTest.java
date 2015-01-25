@@ -1,29 +1,36 @@
 package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonElement;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
+import ru.yandex.school.hlebushek.models.Users;
 
 import static org.junit.Assert.*;
+import static ru.yandex.school.hlebushek.service.ServiceResult.setJsonObject;
 import static ru.yandex.school.hlebushek.service.UsersData.getUser;
 
 public class UsersDataTest {
-
+    private static final String TEST_LOGIN="login";
+    private static final String TEST_PASSWORD="password";
+    private static final String TEST_FIRST_NAME="firstName";
+    private static final String TEST_LAST_NAME="lastName";
+    Users testUser = new Users();
     @Before
-    public void setUp() throws Exception {
+    public void before() throws Exception {
         DatabaseProvider.openConnection();
+        testUser.setFirstName(TEST_LOGIN);
+        testUser.setFirstName(TEST_PASSWORD);
+        testUser.setFirstName(TEST_FIRST_NAME);
+        testUser.setFirstName(TEST_LAST_NAME);
+        testUser.saveIt();
     }
 
     @Test
     public void getUserTest() throws Exception {
-        JsonElement test_user= getUser(1,"");
-        assertNotNull("Админ не получен",test_user);
-    }
-    @Test
-    public void getUserTest2() throws Exception {
-        JsonElement testUser= getUser(0,"user1");
-        assertNotNull("user1 не получен",testUser);
+        JsonElement testUserJSON= getUser(testUser.getUserId(),"");
+        assertThat(testUserJSON, Is.<JsonElement>is(setJsonObject(testUser)));
     }
 
 }

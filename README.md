@@ -1,6 +1,7 @@
 <div align="center">
     <img src='https://pp.vk.me/c623216/v623216453/16f39/ixNbpHR_jPw.jpg'>
 </div>
+[![Build Status](https://travis-ci.org/autoschool/hlebushek.svg?branch=master)](https://travis-ci.org/autoschool/hlebushek)
 =========
 ### Run application ###
 clone project repository to local:
