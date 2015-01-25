@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.hamcrest.core.Is;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
@@ -37,6 +38,10 @@ public class ServiceGateIntegrationTest {
         JsonObject testUserJSON = (JsonObject) new JsonParser().parse(testUserString);
         assertFalse("Error from Json : "+testUserJSON.get("error").getAsString(),testUserJSON.get("is_error").getAsBoolean());
         assertThat(testUserJSON.get("data"), Is.<JsonElement>is(ServiceGate.setJsonObject(testUser)));
+    }
+    @After
+    public void after() {
+        testUser.delete();
     }
 
 }

@@ -2,6 +2,7 @@ package ru.yandex.school.hlebushek.service;
 
 import com.google.gson.JsonElement;
 import org.hamcrest.core.Is;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
@@ -31,6 +32,10 @@ public class UsersDataTest {
     public void getUserTest() throws Exception {
         JsonElement testUserJSON= getUser(testUser.getUserId(),"");
         assertThat(testUserJSON, Is.<JsonElement>is(setJsonObject(testUser)));
+    }
+    @After
+    public void after() {
+        testUser.delete();
     }
 
 }

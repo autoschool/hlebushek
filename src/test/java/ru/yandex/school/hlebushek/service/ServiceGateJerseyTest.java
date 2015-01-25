@@ -6,6 +6,7 @@ import com.google.gson.JsonParser;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.hamcrest.core.Is;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -65,5 +66,9 @@ public class ServiceGateJerseyTest extends JerseyTest {
         assertTrue(receivedJSON.has("data"));
         assertThat(receivedJSON.get("data"), Is.<JsonElement>is(setJsonObject(testUser)));
 
+    }
+    @After
+    public void after() {
+        testUser.delete();
     }
 }

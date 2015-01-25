@@ -1,8 +1,6 @@
 package ru.yandex.school.hlebushek.models;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
 
 import java.util.Collection;
@@ -34,8 +32,10 @@ public class UsersTest {
     public void testGetUsersTest() throws Exception {
         assertThat(allActualUsers, hasItem(same(testUser)));
     }
-
-
+    @After
+    public void after() {
+        testUser.delete();
+    }
 
 
 }
