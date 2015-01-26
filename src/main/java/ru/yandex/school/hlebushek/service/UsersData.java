@@ -14,7 +14,7 @@ class UsersData extends ServiceResult {
      * @param login String
      * @return JsonElement
      */
-    public JsonElement getUser( int userId, String login) throws ServiceGateException {
+    public static JsonElement getUser( int userId, String login) throws ServiceGateException {
         JsonElement json = null;
         try {
             if (userId != 0 && login.isEmpty()) {
