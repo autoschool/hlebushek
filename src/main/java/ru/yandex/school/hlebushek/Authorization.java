@@ -1,30 +1,25 @@
 package ru.yandex.school.hlebushek;
 
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import ru.yandex.school.hlebushek.common.CookiesService;
-import ru.yandex.school.hlebushek.models.Users;
-
-import javax.servlet.ServletContext;
+import java.io.IOException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.IOException;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.glassfish.jersey.client.oauth2.ClientIdentifier;
+import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
+import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
+import ru.yandex.school.hlebushek.common.CookiesService;
+import ru.yandex.school.hlebushek.models.Users;
 
 @Path("/")
 public class Authorization {
 
-    private static final String YANDEX_APP_ID ="008f745997e2428d8f2fbd3548dea765";
-    private static final String YANDEX_APP_SECRET  ="2c03c2165d224ef698a8f8db1e2028b3";
+    private static final String VK_APP_ID ="4639315";
+    private static final String VK_APP_SECRET ="SFM9Ke2QFDQ0LJGDqo0t";
+ 
     @POST
     @Path("basic")
     public void basicAuth(
@@ -49,57 +44,45 @@ public class Authorization {
     }
 
     @GET
-    @Path("yandex_setup")
-    public void yandexSetup(
+    @Path("vk_setup")
+    public void vkSetup(
             @Context HttpServletRequest request,
-            @Context HttpServletResponse response,
-            @Context ServletContext test
-            ) throws IOException {
-        Client client = ClientBuilder.newClient();
-        WebTarget target =  client.target("https://oauth.yandex.ru").path("authorize");
-        target = target.queryParam("response_type","code").queryParam("client_id",YANDEX_APP_ID);
-        response.sendRedirect(target.getUri().toASCIIString());
+            @Context HttpServletResponse response) throws IOException {
+        String referer = request.getHeader("referer");
+        ClientIdentifier client = new ClientIdentifier(VK_APP_ID, VK_APP_SECRET);
+        OAuth2CodeGrantFlow.Builder builder = OAuth2ClientSupport.authorizationCodeGrantFlowBuilder(client,
+                "https://oauth.vk.com/authorize",
+                "https://oauth.vk.com/access_token");
+        builder.redirectUri(referer.concat("/authorization/vk_authorize"));
+        OAuth2CodeGrantFlow flow = builder.property(OAuth2CodeGrantFlow.Phase.AUTHORIZATION, "readOnly", "true")
+                .scope("notify")
+                .property(OAuth2CodeGrantFlow.Phase.ALL, "response_type", "token")
+                .property(OAuth2CodeGrantFlow.Phase.ALL, "v","5.27")
+                .build();
+        String authorizationUri = flow.start();
+        response.sendRedirect(authorizationUri);
     }
-    
+
     @GET
-    @Path("yandex_authorize")
-    public void yandexAuthorize(
-            @QueryParam("code") String code,
+    @Path("vk_authorize")
+    public void vkAuthorize(
+            @QueryParam("access_token") String token,
+            @QueryParam("user_id") String userId,
             @Context HttpServletRequest request,
-            @Context HttpServletResponse response
-    ) throws IOException {
-        if (code!=null){
-            Client client = ClientBuilder.newClient();
-            WebTarget target = client.target("https://oauth.yandex.ru/token");
-            Form form = new Form();
-            form.param("grant_type","authorization_code");
-            form.param("code", code);
-            form.param("client_id", YANDEX_APP_ID);
-            form.param("client_secret", YANDEX_APP_SECRET);
-
-            String tmp = target.request(MediaType.APPLICATION_JSON_TYPE)
-                    .header("charset", "utf-8")
-                    .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE),
-                            String.class);
-            String token =((JsonObject)new JsonParser().parse(tmp)).get("access_token").getAsString();
-            Response tmp2 = client.target("https://login.yandex.ru").path("info")
-                    .queryParam("format", "json")
-                    .queryParam("oauth_token", token).request(MediaType.APPLICATION_JSON_TYPE).
-                    header("charset", "utf-8").get();
-            JsonObject user_info = (JsonObject)new JsonParser().parse(tmp2.readEntity(String.class));
-            Users user = Users.findFirst("yandex_id=?", user_info.get("id").getAsInt());
-            if(user==null){
-                user = new Users();
-                user.setYandexId(user_info.get("id").getAsInt());
-                user.setFirstName(user_info.get("first_name").getAsString());
-                user.setLastName(user_info.get("last_name").getAsString());
-                user.setSmallImagePath("https://avatars.yandex.net/get-yapic/" + user_info.get("default_avatar_id").getAsString() + "/islands-50");
-                user.setLargeImagePath("https://avatars.yandex.net/get-yapic/" + user_info.get("default_avatar_id").getAsString() + "/islands-200");
-            }
+            @Context HttpServletResponse response) throws IOException {
+        Users user = Users.findFirst("vk_id=?", userId);
+        String referer = request.getHeader("referer");
+        if (user == null){
+            user = new Users();
+            user.setVkId(Integer.parseInt(userId));
             user.setToken(token);
-            user.saveIt();
-            response.addCookie(CookiesService.setCookieWithUserId(user.getUserId()));
+            user.save();
         }
-
+        Cookie cookie = new Cookie("hlebushek_auth",
+                String.valueOf(DigestUtils.md5Hex(String.valueOf(user.getUserId()))));
+        cookie.setMaxAge(60 * 60);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        response.sendRedirect(referer);
     }
 }
