@@ -23,7 +23,6 @@ public class CommentWebTest {
     }
 
     @Test
-
     public void commentIsPublished(){
         commentingUser.login();
         commentingUser.openHomeUrl();
