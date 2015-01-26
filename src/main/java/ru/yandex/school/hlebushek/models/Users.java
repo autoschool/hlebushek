@@ -15,6 +15,10 @@ public class Users extends Model {
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
     private static final String USER_IS_DELETED = "is_deleted";
+    private static final String YANDEX_ID = "yandex_id";
+    private static final String YANDEX_TOKEN = "yandex_token";
+    private static final String SMALL_IMAGE_PATH = "photo_50";
+    private static final String LARGE_IMAGE_PATH = "photo_200";
 
     public int getUserId() {
         return getInteger(USER_ID);
@@ -91,27 +95,36 @@ public class Users extends Model {
     public void setUserIsDeleted(Boolean isDeleted) {
         setBoolean(USER_IS_DELETED, isDeleted);
     }
-    public Integer getVkId() {
-        return getInteger("vk_id");
+
+    public Integer getYandexId() {
+        return getInteger(YANDEX_ID);
     }
 
-    public void setVkId(Integer vkId) {
-        setInteger("vk_id",vkId);
+    public void setYandexId(Integer yandexId) {
+        setInteger(YANDEX_ID,yandexId);
     }
     
     public String getToken() {
-        return getString("vk_token");
+        return getString(YANDEX_TOKEN);
     }
 
     public void setToken(String token) {
-        setString("vk_token", token);
+        setString(YANDEX_TOKEN, token);
     }
     
-    public String getSmallImage() {
-        return getString("photo_50");
+    public String getSmallImagePath(){
+        return getString(SMALL_IMAGE_PATH);
     }
 
-    public void setSmallImage(Byte[] image) {
-        set("photo_50",image);
+    public void setSmallImagePath(String imagePath){
+        set(SMALL_IMAGE_PATH,imagePath);
+    }
+
+    public String getLargeImagePath(){
+        return getString(LARGE_IMAGE_PATH);
+    }
+
+    public void setLargeImagePath(String imagePath){
+        set(LARGE_IMAGE_PATH,imagePath);
     }
 }
