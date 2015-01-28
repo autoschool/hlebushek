@@ -5,6 +5,8 @@ import org.hamcrest.core.Is;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
 import ru.yandex.school.hlebushek.models.Users;
 
@@ -21,13 +23,14 @@ public class UsersDataTest {
     @Before
     public void before() throws Exception {
         DatabaseProvider.openConnection();
-        testUser.setFirstName(TEST_LOGIN);
-        testUser.setFirstName(TEST_PASSWORD);
+        testUser.setLogin(TEST_LOGIN);
+        testUser.setPassword(TEST_PASSWORD);
         testUser.setFirstName(TEST_FIRST_NAME);
-        testUser.setFirstName(TEST_LAST_NAME);
+        testUser.setLastName(TEST_LAST_NAME);
         testUser.saveIt();
     }
-
+    @Features("Пользователи")
+    @Stories("Проверка выдачи пользователя без JerseyTest")
     @Test
     public void getUserTest() throws Exception {
         JsonElement testUserJSON= getUser(testUser.getUserId(),"");

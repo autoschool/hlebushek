@@ -44,6 +44,11 @@ public class UsersMatcher extends TypeSafeMatcher<Users> {
     }
 
     @Override
+    protected void describeMismatchSafely(Users item, Description mismatchDescription) {
+        mismatchDescription.appendText("User - ").appendValue(item.toString());
+    }
+
+    @Override
     public void describeTo(Description description) {
         description.appendText(describe);
     }

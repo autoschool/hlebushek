@@ -7,6 +7,8 @@ import org.hamcrest.core.Is;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
 import ru.yandex.school.hlebushek.models.Users;
 
@@ -31,7 +33,8 @@ public class ServiceGateIntegrationTest {
         testUser.setFirstName(TEST_LAST_NAME);
         testUser.saveIt();
     }
-
+    @Features("Пользователи")
+    @Stories("Проверка выдачи пользователя c Моком")
     @Test
     public void testGetUser() {
         String testUserString = testServiceGate.getUser(testUser.getUserId(), "");

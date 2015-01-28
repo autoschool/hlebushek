@@ -1,6 +1,8 @@
 package ru.yandex.school.hlebushek.models;
 
 import org.junit.*;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
 
 import java.util.Collection;
@@ -28,6 +30,8 @@ public class UsersTest {
         testUser.setLastName(TEST_LAST_NAME);
         testUser.saveIt();
     }
+    @Features("Пользователи")
+    @Stories("Проверка модели")
     @Test
     public void testGetUsersTest() throws Exception {
         assertThat(allActualUsers, hasItem(same(testUser)));

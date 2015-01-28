@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.school.hlebushek.db.DatabaseProvider;
 import ru.yandex.school.hlebushek.models.Users;
 
@@ -47,7 +49,8 @@ public class ServiceGateJerseyTest extends JerseyTest {
         resourceConfig.register(DatabaseProvider.class);
         return resourceConfig;
     }
-
+    @Features("Пользователи")
+    @Stories("Проверка выдачи пользователя c JerseyTest")
     @Test
     public void testGetUser() {
         Response response = target("users").queryParam("user_id", testUser.getId()).request().get();
